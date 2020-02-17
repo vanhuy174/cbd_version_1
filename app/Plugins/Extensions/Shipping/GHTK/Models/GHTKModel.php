@@ -2,6 +2,7 @@
 
 namespace App\Plugins\Extensions\Shipping\GHTK\Models;
 
+use App\Models\ShopShippingStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Log;
@@ -47,6 +48,95 @@ class GHTKModel extends Model
                     $table->timestamps();
                 });
                 $this->insert(['fee' => 0, 'shipping_free' => 500000]);
+                ShopShippingStatus::truncate();
+                ShopShippingStatus::insert([
+                    [
+                        'id' => '1',
+                        'name' => 'GHTK - Chưa tiếp nhận'
+                    ],
+                    [
+                        'id' => '2',
+                        'name' => 'GHTK - Đã tiếp nhận'
+                    ],
+                    [
+                        'id' => '3',
+                        'name' => 'GHTK - Đã lấy hàng/Đã nhập kho'
+                    ],
+                    [
+                        'id' => '4',
+                        'name' => 'GHTK - Đã điều phối giao hàng/Đang giao hàng
+'
+                    ],
+                    [
+                        'id' => '5',
+                        'name' => 'GHTK - Đã giao hàng/Chưa đối soát'
+                    ],
+                    [
+                        'id' => '6',
+                        'name' => 'GHTK - Đã đối soát'
+                    ],
+                    [
+                        'id' => '7',
+                        'name' => 'GHTK - 	Không lấy được hàng'
+                    ],
+                    [
+                        'id' => '8',
+                        'name' => 'GHTK - Hoãn lấy hàng'
+                    ],
+                    [
+                        'id' => '9',
+                        'name' => 'GHTK - Không giao được hàng'
+                    ],
+                    [
+                        'id' => '10',
+                        'name' => 'GHTK - Delay giao hàng'
+                    ],
+                    [
+                        'id' => '11',
+                        'name' => 'GHTK - Đã đối soát công nợ trả hàng'
+                    ],
+                    [
+                        'id' => '12',
+                        'name' => 'GHTK - Đã điều phối lấy hàng/Đang lấy hàng'
+                    ],
+                    [
+                        'id' => '13',
+                        'name' => 'GHTK - Đơn hàng bồi hoàn'
+                    ],
+                    [
+                        'id' => '20',
+                        'name' => 'GHTK - Đang trả hàng (COD cầm hàng đi trả)'
+                    ],
+                    [
+                        'id' => '21',
+                        'name' => 'GHTK - Đã trả hàng (COD đã trả xong hàng)'
+                    ],
+                    [
+                        'id' => '123',
+                        'name' => 'GHTK - Shipper báo đã lấy hàng'
+                    ],
+                    [
+                        'id' => '127',
+                        'name' => 'GHTK - Shipper (nhân viên lấy/giao hàng) báo không lấy được hàng'
+                    ],
+                    [
+                        'id' => '128',
+                        'name' => 'GHTK - Shipper báo delay lấy hàng'
+                    ],
+                    [
+                        'id' => '45',
+                        'name' => 'GHTK - Shipper báo đã giao hàng'
+                    ],
+                    [
+                        'id' => '49',
+                        'name' => 'GHTK - Shipper báo không giao được giao hàng'
+                    ],
+                    [
+                        'id' => '410',
+                        'name' => 'GHTK - Shipper báo delay giao hàng'
+                    ],
+
+                ]);
                 (new GHTKWarehouseModel())->install();
                 (new GHTKOrderModel())->install();
             } catch (\Exception $e) {

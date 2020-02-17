@@ -13,6 +13,7 @@ use App\Plugins\Extensions\Shipping\GHTK\Models\GHTKOrderModel;
 use App\Plugins\Extensions\Shipping\GHTK\Models\GHTKWarehouseModel;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use function MongoDB\BSON\toJSON;
 
 class GHTKWebserviceController extends Controller
@@ -21,6 +22,7 @@ class GHTKWebserviceController extends Controller
     private $url;
     private $token;
     private $create_order_url;
+    private $track_url;
 
 
     public function __construct()
@@ -28,11 +30,12 @@ class GHTKWebserviceController extends Controller
         $ghtk = GHTKModel::find(1);
         $this->url = $ghtk->getWebserviceUrl();
         $this->create_order_url = $this->url .'/services/shipment/order';
+        $this->track_url = $this->url .'/services/shipment/v2/';
         $this->token = $ghtk->token;
         $this->client = new Client([
             'headers' => [
                 'Token' => $this->token,
-                'Content-Type' => 'aplication/json',
+                'Content-Type' => 'application/json',
             ],
         ]);
     }
@@ -81,7 +84,6 @@ class GHTKWebserviceController extends Controller
             'form_params' => $data
         ));
         $rs = json_decode($response->getBody());
-        dd($rs);
         if ($rs->success) {
             GHTKOrderModel::create([
                 'shop_order_id' => $id,
@@ -94,11 +96,17 @@ class GHTKWebserviceController extends Controller
                 'value' => (int) $request->get('value'),
                 'is_freeship' => $request->get('is_freeship')
             ]);
+            dd($rs);
             ShopOrder::updateInfo([
                 'shipping_status' => $rs->order->status_id
             ], $id);
             return redirect()->route('ghtk.warehouses.index')->with('success', 'Thêm kho hàng thành công');
         }
         return back()->with('error', $rs->message);
+    }
+
+    public function track($order)
+    {
+        return json_decode($this->client->get($this->track_url.$order)->getBody()->getContents());
     }
 }

@@ -31,6 +31,9 @@ class GHTKController extends ShopOrderController
         $ghtk_order = null;
         if (isset($shippingMethod['GHTK']))
             $ghtk_order = GHTKOrderModel::where('shop_order_id', $id)->first();
+        $order_track = null;
+        if (!is_null($ghtk_order))
+            $order_track = (new GHTKWebserviceController())->track($ghtk_order->ghtk_order_id);
         return view((new AppConfig())->pathPlugin.'::order_edit')->with(
             [
                 "title" => trans('order.order_detail'),
@@ -49,6 +52,7 @@ class GHTKController extends ShopOrderController
                 'shippingMethod' => $shippingMethod,
                 'countryMap' => $this->countryMap,
                 'ghtk_order' => $ghtk_order,
+                'order_track' => $order_track,
             ]);
     }
 

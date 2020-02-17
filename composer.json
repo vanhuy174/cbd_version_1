@@ -23,7 +23,8 @@
         "paypal/rest-api-sdk-php": "^1.13",
         "phpoffice/phpspreadsheet": "^1.8",
         "spatie/laravel-pjax": "^2.0",
-        "unisharp/laravel-filemanager": "dev-master"
+        "unisharp/laravel-filemanager": "dev-master",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

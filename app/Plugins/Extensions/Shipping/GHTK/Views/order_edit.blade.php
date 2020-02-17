@@ -83,51 +83,46 @@
                            </div>
                        @endif
                    </div>
-
-                   {{--               <div class="row" id="order-body">--}}
-                   {{--                   <div class="col-sm-6">--}}
-                   {{--                       <table class="table table-bordered">--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.shipping_first_name') }}:</td><td><a href="#" class="updateInfoRequired" data-name="first_name" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.shipping_first_name') }}" >{!! $order->first_name !!}</a></td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.shipping_last_name') }}:</td><td><a href="#" class="updateInfoRequired" data-name="last_name" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.shipping_last_name') }}" >{!! $order->last_name !!}</a></td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.shipping_phone') }}:</td><td><a href="#" class="updateInfoRequired" data-name="phone" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.shipping_phone') }}" >{!! $order->phone !!}</a></td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.email') }}:</td><td>{!! empty($order->email)?'N/A':$order->email!!}</td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.shipping_address1') }}:</td><td><a href="#" class="updateInfoRequired" data-name="address1" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.address1') }}" >{!! $order->address1 !!}</a></td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.shipping_address2') }}:</td><td><a href="#" class="updateInfoRequired" data-name="address2" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.address2') }}" >{!! $order->address2 !!}</a></td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.country') }}:</td><td><a href="#" class="updateInfoRequired" data-name="country" data-type="select" data-source ="{{ json_encode($countryMap) }}" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.country') }}" data-value="{!! $order->country !!}"></a></td>--}}
-                   {{--                           </tr>--}}
-                   {{--                       </table>--}}
-                   {{--                   </div>--}}
-                   {{--                   <div class="col-sm-6">--}}
-                   {{--                       <table  class="table table-bordered">--}}
-                   {{--                           <tr><td  class="td-title">{{ trans('order.order_status') }}:</td><td><a href="#" class="updateStatus" data-name="status" data-type="select" data-source ="{{ json_encode($statusOrderMap) }}"  data-pk="{{ $order->id }}" data-value="{!! $order->status !!}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.order_status') }}">{{ $statusOrder[$order->status] }}</a></td></tr>--}}
-                   {{--                           <tr><td>{{ trans('order.order_shipping_status') }}:</td><td><a href="#" class="updateStatus" data-name="shipping_status" data-type="select" data-source ="{{ json_encode($statusShippingMap) }}"  data-pk="{{ $order->id }}" data-value="{!! $order->shipping_status !!}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.order_shipping_status') }}">{{ $statusShipping[$order->shipping_status]??'' }}</a></td></tr>--}}
-                   {{--                           <tr><td>{{ trans('order.shipping_method') }}:</td><td><a href="#" class="updateStatus" data-name="shipping_method" data-type="select" data-source ="{{ json_encode($shippingMethod) }}"  data-pk="{{ $order->id }}" data-value="{!! $order->shipping_method !!}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.shipping_method') }}">{{ $order->shipping_method }}</a></td></tr>--}}
-                   {{--                           <tr><td>{{ trans('order.payment_method') }}:</td><td><a href="#" class="updateStatus" data-name="payment_method" data-type="select" data-source ="{{ json_encode($paymentMethod) }}"  data-pk="{{ $order->id }}" data-value="{!! $order->payment_method !!}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.payment_method') }}">{{ $order->payment_method }}</a></td></tr>--}}
-                   {{--                       </table>--}}
-                   {{--                       <table class="table table-bordered">--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.currency') }}:</td><td>{{ $order->currency }}</td>--}}
-                   {{--                           </tr>--}}
-                   {{--                           <tr>--}}
-                   {{--                               <td class="td-title">{{ trans('order.exchange_rate') }}:</td><td>{{ ($order->exchange_rate)??1 }}</td>--}}
-                   {{--                           </tr>--}}
-                   {{--                       </table>--}}
-                   {{--                   </div>--}}
-
-                   {{--               </div>--}}
+                   <div class="row" id="ghtk_order">
+                       <div class="col-sm-6">
+                           <table class="table table-bordered">
+                               <tr>
+                                   <td class="td-title">Trạng thái đơn hàng:</td><td>{{$order_track->order->status_text}}</td>
+                               </tr>
+                               <tr>
+                                   <td class="td-title">Ngày tạo đơn:</td><td>{{$order_track->order->created}}</td>
+                               </tr>
+                               <tr>
+                                   <td class="td-title">Cập nhật cuối lúc:</td><td>{{$order_track->order->modified}}</td>
+                               </tr>
+                               <tr>
+                                   <td class="td-title">Ngày hẹn lấy:</td><td>{{$order_track->order->pick_date}}</td>
+                               </tr>
+                               <tr>
+                                   <td class="td-title">Số ngày giữ đơn tại kho GHTK:</td><td>{{$order_track->order->storage_day}}</td>
+                               </tr>
+                           </table>
+                       </div>
+                       <div class="col-sm-6">
+                       <table class="table table-bordered">
+                           <tr>
+                               <td class="td-title">Phí giao:</td><td>{{$order_track->order->ship_money}}</td>
+                           </tr>
+                           <tr>
+                               <td class="td-title">Phí bảo hiểm:</td><td>{{$order_track->order->insurance}}</td>
+                           </tr>
+                           <tr>
+                               <td class="td-title">Giá trị đóng bảo hiểm:</td><td>{{$order_track->order->value}}</td>
+                           </tr>
+                           <tr>
+                               <td class="td-title">Số tiền cần thu hộ:</td><td>{{$order_track->order->pick_money}}</td>
+                           </tr>
+                           <tr>
+                               <td class="td-title">Miễn phí ship:</td><td>{{($order_track->order->is_freeship) ? 'Miễn phí' : 'Không'}}</td>
+                           </tr>
+                       </table>
+                   </div>
+                   </div>
                </div>
            @endif
 
