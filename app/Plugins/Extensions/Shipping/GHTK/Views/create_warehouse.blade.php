@@ -86,10 +86,8 @@
                                 <div class="{{ $errors->has('pick_province') ? ' has-error' : '' }}">
                                     <label for="pick_province" class="control-label">Tỉnh thành <span class="required">*</span></label>
                                     <select class="form-control pick_province" name="pick_province" id="pick_province">
-                                        <option value="">Chọn thành phố</option>
+                                        <option value="">Chọn tỉnh/thành phố</option>
                                     </select>
-{{--                                    <input type="text" id="" name="" value="{!! old()?old('pick_province'):$obj['pick_province']??'' !!}"--}}
-{{--                                           class="form-control " placeholder="" />--}}
                                     <small>Tỉnh thành nơi lấy hàng</small>
                                     @if ($errors->has('pick_province'))
                                         <span class="help-block">
@@ -102,9 +100,9 @@
                             <div class="col-sm-3">
                                 <div class="{{ $errors->has('pick_district') ? ' has-error' : '' }}">
                                     <label for="pick_district" class="control-label">Quận/huyện <span class="required">*</span></label>
-                                    <input type="text" id="pick_district" name="pick_district"
-                                           value="{!! old()?old('pick_district'):$obj['pick_district']??'' !!}"
-                                           class="form-control pick_district" placeholder="" />
+                                    <select class="form-control pick_district" name="pick_district" id="pick_district">
+                                        <option value="">Chọn quận/huyện</option>
+                                    </select>
                                     <small>Quận/huyện nơi lấy hàng hóa</small>
                                     @if ($errors->has('pick_district'))
                                         <span class="help-block">
@@ -116,8 +114,9 @@
                             <div class="col-sm-3">
                                 <div class="{{ $errors->has('pick_ward') ? ' has-error' : '' }}">
                                     <label for="pick_ward" class="control-label">Xã/phường/thị trấn</label>
-                                    <input type="text" id="pick_ward" name="pick_ward" value="{!! old()?old('pick_ward'):$obj['pick_ward']??'' !!}"
-                                           class="form-control pick_ward" placeholder="" />
+                                    <select class="form-control pick_ward" name="pick_ward" id="pick_ward">
+                                        <option value="">Chọn xã/phường/thị trấn</option>
+                                    </select>
                                     <small>Xã/phường/thị trấn nơi lấy hàng hóa</small>
                                     @if ($errors->has('pick_ward'))
                                         <span class="help-block">
@@ -204,22 +203,135 @@
             @push('scripts')
             <script>
                 $(document).ready(function () {
-                    get_province();
+                    get_default_ward();
+                    $(document).on('change', '#pick_province',function () {
+                        let code = $(this).find('option:selected').data('code');
+                        get_district(code);
+                    });
+
+                    $(document).on('change', '#pick_district',function () {
+                        let code = $(this).find('option:selected').data('code');
+                        get_ward(code);
+                    });
                 });
 
-                function get_province() {
-                    let url = 'https://khachhang.giaohangtietkiem.vn/khach-hang/services/list-dia-chi-public';
-                    let success = function (result) {
-                        let rs = JSON.parse(result);
-                        $('<option value="'+rs.id+'">'+rs.name+'</option>')
-                    };
-                    $.ajax({
-                        url: url,
-                        crossDomain: true,
-                        type: "GET",
-                        beforeSend: function(xhr){xhr.setRequestHeader('Access-Control-Allow-Origin', '*');},
-                        success: success
+                async function get_default_ward() {
+                    await get_default_district();
+                    let code = $('#pick_district').find('option:selected').data('code');
+                    let ward = "{!! old()?old('pick_ward'):$obj['pick_ward']??'' !!}";
+                    $.getJSON('{{asset('hcvn/xa_phuong.json')}}', function (json) {
+                        jQuery.each(json, function(index, item) {
+                            if (item.parent_code == code) {
+                                let opt;
+                                if (ward === item.name_with_type) {
+                                    opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'" selected>'+item.name_with_type+'</option>');
+                                } else{
+                                    opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'">'+item.name_with_type+'</option>');
+                                }
+                                $('#pick_ward').append(opt);
+                            }
+                        });
                     });
+                }
+
+                function get_ward(code) {
+                    let ward = "{!! old()?old('pick_ward'):$obj['pick_ward']??'' !!}";
+                    $.getJSON('{{asset('hcvn/xa_phuong.json')}}', function (json) {
+                        $('#pick_ward').empty();
+                        $('#pick_ward').append($('<option value="">Chọn xã/phường/thị trấn</option>'));
+                        jQuery.each(json, function(index, item) {
+                            if (item.parent_code == code) {
+                                let opt;
+                                if (ward === item.name_with_type) {
+                                    opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'" selected>'+item.name_with_type+'</option>');
+                                } else{
+                                    opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'">'+item.name_with_type+'</option>');
+                                }
+                                $('#pick_ward').append(opt);
+                            }
+                        });
+                    });
+                }
+
+                async function get_default_district() {
+                    await get_defaut_province();
+                    let code = $('#pick_province').find('option:selected').data('code');
+                    let district = "{!! old()?old('pick_district'):$obj['pick_district']??'' !!}";
+                    return new Promise(resolve => {
+                        $.getJSON('{{asset('hcvn/quan_huyen.json')}}', function (json) {
+                            jQuery.each(json, function(index, item) {
+                                if (item.parent_code == code) {
+                                    let opt;
+                                    if (district === item.name_with_type) {
+                                        opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'" selected>'+item.name_with_type+'</option>');
+                                    } else{
+                                        opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'">'+item.name_with_type+'</option>');
+                                    }
+                                    $('#pick_district').append(opt);
+                                }
+                            });
+                            resolve($('#pick_district'));
+                        });
+                    });
+                }
+
+                function get_district(code) {
+                    let district = "{!! old()?old('pick_district'):$obj['pick_district']??'' !!}";
+                        $.getJSON('{{asset('hcvn/quan_huyen.json')}}', function (json) {
+                            $('#pick_district').empty();
+                            $('#pick_district').append($('<option value="">Chọn quận/huyện</option>'));
+                            $('#pick_ward').empty();
+                            $('#pick_ward').append($('<option value="">Chọn xã/phường/thị trấn</option>'));
+                            jQuery.each(json, function(index, item) {
+                                if (item.parent_code == code) {
+                                    let opt;
+                                    if (district === item.name_with_type) {
+                                        opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'" selected>'+item.name_with_type+'</option>');
+                                    } else{
+                                        opt = $('<option data-code="'+index+'" value="'+item.name_with_type+'">'+item.name_with_type+'</option>');
+                                    }
+                                    $('#pick_district').append(opt);
+                                }
+                            });
+                        });
+                }
+
+                function get_defaut_province() {
+                    return new Promise(resolve => {
+                        let province = "{!! old()?old('pick_province'):$obj['pick_province']??'' !!}";
+                        $.getJSON('{{asset('hcvn/tinh_tp.json')}}', function (json) {
+                            jQuery.each(json, function(index, item) {
+                                let opt;
+                                if (province === item.name) {
+                                    opt = $('<option data-code="'+index+'" value="'+item.name+'" selected>'+item.name+'</option>');
+                                } else{
+                                    opt = $('<option data-code="'+index+'" value="'+item.name+'">'+item.name+'</option>');
+                                }
+                                $('#pick_province').append(opt);
+                            });
+                            resolve($('#pick_province'));
+                        });
+                    });
+                }
+
+                function get_province() {
+                        let province = "{!! old()?old('pick_province'):$obj['pick_province']??'' !!}";
+                        $.getJSON('{{asset('hcvn/tinh_tp.json')}}', function (json) {
+                            $('#pick_province').empty();
+                            $('#pick_district').empty();
+                            $('#pick_district').append($('<option value="">Chọn quận/huyện</option>'));
+                            $('#pick_ward').empty();
+                            $('#pick_ward').append($('<option value="">Chọn xã/phường/thị trấn</option>'));
+                            jQuery.each(json, function(index, item) {
+                                let opt;
+                                if (province === item.name) {
+                                    opt = $('<option data-code="'+index+'" value="'+item.name+'" selected>'+item.name+'</option>');
+                                } else{
+                                    opt = $('<option data-code="'+index+'" value="'+item.name+'">'+item.name+'</option>');
+                                }
+                                $('#pick_province').append(opt);
+                            });
+                        });
                 }
             </script>
     @endpush
