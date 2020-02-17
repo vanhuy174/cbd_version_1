@@ -161,7 +161,7 @@
                             <div class="col-sm-12">
                                 <div class="{{ $errors->has('is_primary') ? ' has-error' : '' }}">
                                     <input type="hidden" value="0" name="is_primary" checked/>
-                                    <input type="checkbox" value="1" id="is_primary" name="is_primary" {!! old('is_primary') || $obj['is_primary'] ? 'checked' : '' !!} class="form-check-input is_primary"/>
+                                    <input type="checkbox" value="1" id="is_primary" name="is_primary" {!! old('is_primary') || isset($obj['is_primary']) ? 'checked' : '' !!} class="form-check-input is_primary"/>
                                     <label for="is_primary" class="form-check-label">Kho hàng chính (chỉ chọn 1, sẽ ưu tiên chọn khi gửi đơn hàng lên GHTK)</label>
                                 </div>
                             </div>
