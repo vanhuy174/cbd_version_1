@@ -31,7 +31,7 @@ class GHTKModel extends Model
         }
         (new GHTKWarehouseModel())->uninstall();
         (new GHTKOrderModel())->uninstall();
-        ShopShippingStatus::truncate();
+        ShopShippingStatus::whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 20, 21, 123, 127, 128, 45, 49, 410, 9999]);
     }
 
     public function installExtension()
