@@ -1,9 +1,10 @@
 <?php
-#App\Plugins\Extensions\Other\ExtCustomer\AppConfig.php
-namespace App\Plugins\Extensions\Shipping\ExtCustomer;
+
+namespace App\Plugins\Extensions\Other\ExtCustomer;
 
 use App\Models\AdminConfig;
 use App\Plugins\Extensions\ConfigDefault;
+
 class AppConfig extends ConfigDefault
 {
     protected $configGroup = 'Extensions';
