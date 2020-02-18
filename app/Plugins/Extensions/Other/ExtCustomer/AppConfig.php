@@ -12,12 +12,12 @@ class AppConfig extends ConfigDefault
 
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'.$this->configKey . '.title');
-        $this->image = 'images/' . $this->pathExtension . '.png';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'.$this->configKey . '.title');
+        $this->image = 'images/' . $this->pathPlugin . '.png';
         $this->version = '1.0';
-        $this->auth = 'Naruto';
-        $this->link = 'https://s-cart.org';
+        $this->auth = 'Nong Van Du';
+        $this->link = 'https://github.com/meesudzu';
     }
 
     public function install()
@@ -34,7 +34,7 @@ class AppConfig extends ConfigDefault
                     'group' => $this->configGroup,
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ON, //1- Enable extension; 0 - Disable
-                    'detail' => $this->pathExtension.'::' . $this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::' . $this->configKey . '.title',
                 ]
             );
         }

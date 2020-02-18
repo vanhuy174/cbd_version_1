@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'title' => 'ExtCustomer module',
+    'title' => 'Customer Extended',
 ];

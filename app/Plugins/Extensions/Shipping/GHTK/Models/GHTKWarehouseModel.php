@@ -27,6 +27,14 @@ class GHTKWarehouseModel extends Model
         if (Schema::hasTable($this->table)) {
             Schema::drop($this->table);
         }
+        $dataInsert = [
+            'title' => 'Quản lý kho hàng GHTK',
+            'parent_id' => 1,
+            'uri' => 'route::ghtk.warehouses.index',
+            'icon' => 'fa-bank',
+            'sort' => 7,
+        ];
+        AdminMenu::where($dataInsert)->delete();
     }
 
     public function install()
