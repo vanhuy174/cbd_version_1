@@ -15,15 +15,21 @@
 
                             <div class="form-group">
                                 <label>Chọn kho</label>
-                                <select class="form-control" name="warehouse">
-                                    @foreach($warehouses as $warehouse)
-                                        @if($warehouse->is_primary)
-                                            <option value="{{$warehouse->id}}" selected>{{$warehouse->warehouse_name}} (Kho chính)</option>
-                                        @else
-                                            <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                                @if(empty($warehouses))
+                                    <p>
+                                        Vui lòng tạo kho hàng<a href="{{route('ghtk.warehouses.create')}}"> tại đây </a> trước khi đăng đơn lên GHTK.
+                                    </p>
+                                @else
+                                    <select class="form-control" name="warehouse">
+                                        @foreach($warehouses as $warehouse)
+                                            @if($warehouse->is_primary)
+                                                <option value="{{$warehouse->id}}" selected>{{$warehouse->warehouse_name}} (Kho chính)</option>
+                                            @else
+                                                <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                @endif
                             </div>
 
                         </div>

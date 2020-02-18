@@ -20,4 +20,6 @@ Route::group(
     Route::get('order/detail/{id}', 'GHTKController@detail')->name('admin_order.detail');
     Route::get('ghtk/order/create/{id}', 'GHTKController@ghtk_order')->name('ghtk.order.create');
     Route::post('ghtk/order/create/{id}', 'GHTKWebserviceController@create_order')->name('ghtk.order.send');
+    Route::get('ghtk/order/print/{id}', 'GHTKWebserviceController@ghtk_order_print')->name('ghtk.order.print');
+    Route::get('ghtk/order/cancel/{id}', 'GHTKWebserviceController@ghtk_order_cancel')->name('ghtk.order.cancel');
 });

@@ -3,16 +3,19 @@
 
 namespace App\Plugins\Extensions\Shipping\GHTK\Controllers;
 
+use App\Admin\Admin;
 use App\Admin\Controllers\ShopOrderController;
 use App\Http\Controllers\Controller;
 use App\Models\ShopAttributeGroup;
 use App\Models\ShopOrder;
 use App\Models\ShopOrderTotal;
 use App\Models\ShopProduct;
+use App\Models\ShopShippingStatus;
 use App\Plugins\Extensions\Shipping\GHTK\AppConfig;
 use App\Plugins\Extensions\Shipping\GHTK\Models\GHTKOrderModel;
 use App\Plugins\Extensions\Shipping\GHTK\Models\GHTKWarehouseModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GHTKController extends ShopOrderController
 {
@@ -32,8 +35,26 @@ class GHTKController extends ShopOrderController
         if (isset($shippingMethod['GHTK']))
             $ghtk_order = GHTKOrderModel::where('shop_order_id', $id)->first();
         $order_track = null;
-        if (!is_null($ghtk_order))
-            $order_track = (new GHTKWebserviceController())->track($ghtk_order->ghtk_order_id);
+        if (!is_null($ghtk_order)) {
+            try {
+                $order_track = (new GHTKWebserviceController())->track($ghtk_order->ghtk_order_id);
+                ShopShippingStatus::findOrFail($order_track->order->status);
+                if ($order->shipping_status != $order_track->order->status) {
+                    //Add history
+                    $dataHistory = [
+                        'order_id' => $order->id,
+                        'content' => 'Change <b>shipping status</b> from <span style="color:blue">' . $order->shipping_status . '</span> to <span style="color:red">' . $order_track->order->status . '</span>',
+                        'admin_id' => Admin::user()->id,
+                    ];
+                    $order->shipping_status = $order_track->order->status;
+                    $order->save();
+                    (new ShopOrder)->addOrderHistory($dataHistory);
+                }
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+            }
+        }
+
         return view((new AppConfig())->pathPlugin.'::order_edit')->with(
             [
                 "title" => trans('order.order_detail'),

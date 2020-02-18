@@ -11,15 +11,12 @@
                   <div class="btn-group pull-right" style="margin-right: 0px">
                       <a href="{{ route('admin_order.index') }}" class="btn btn-sm btn-flat btn-default"><i class="fa fa-list"></i>&nbsp;{{ trans('admin.list') }}</a>
                   </div>
-                  <div class="btn-group pull-right" style="margin-right: 10px">
-                      <a href="{{ route('admin_order.export_detail').'?order_id='.$order->id.'&type=invoice' }}" class="btn btn-sm btn-flat btn-twitter" title="Export"><i class="fa fa-file-excel-o"></i><span class="hidden-xs"> Excel</span></a>
-                  </div>
-{{--                   <div class="btn-group pull-right" style="margin-right: 10px">
-                      <a href="{{ route('admin_order.export_detail').'?order_id='.$order->id.'&type=pdf' }}" class="btn btn-sm btn-flat btn-warning" title="Export"><i class="fa fa-file-pdf-o"></i><span class="hidden-xs"> PDF</span></a>
-                  </div> --}}
-                  <div class="btn-group pull-right" style="margin-right: 10px;border:1px solid #c5b5b5;">
-                      <a class="btn btn-sm btn-flat" title="Export" onclick="order_print()"><i class="fa fa-print"></i><span class="hidden-xs"> Print</span></a>
-                  </div>
+{{--                  <div class="btn-group pull-right" style="margin-right: 10px">--}}
+{{--                      <a href="{{ route('admin_order.export_detail').'?order_id='.$order->id.'&type=invoice' }}" class="btn btn-sm btn-flat btn-twitter" title="Export"><i class="fa fa-file-excel-o"></i><span class="hidden-xs"> Excel</span></a>--}}
+{{--                  </div>--}}
+{{--                  <div class="btn-group pull-right" style="margin-right: 10px;border:1px solid #c5b5b5;">--}}
+{{--                      <a class="btn btn-sm btn-flat" title="Export" onclick="order_print()"><i class="fa fa-print"></i><span class="hidden-xs"> Print</span></a>--}}
+{{--                  </div>--}}
               </div>
           </div>
 
@@ -72,57 +69,85 @@
                <div id="shiping-detail">
                    <div class="box-header with-border">
                        <h3 class="box-title">Chi Tiết Vận Chuyển:</h3>
-                       <h3 class="box-title">{{!is_null($ghtk_order) ? $ghtk_order->ghtk_order_id : ''}}</h3>
+                       <h3 class="box-title text-bold">{{!is_null($ghtk_order) ? $ghtk_order->ghtk_order_id : ''}}</h3>
                        @if (is_null($ghtk_order))
                            <div class="box-tools not-print">
                                <div class="btn-group pull-right" style="margin-right: 0px">
-                                   <a href="{{ route('ghtk.order.create', $order->id) }}" target="_blank" class="btn btn-sm btn-flat btn-success"
+                                   <a href="{{ route('ghtk.order.create', $order->id) }}" class="btn btn-sm btn-flat btn-success"
                                       onclick="return confirm('Bạn đã xác nhận thông tin đơn hàng?')">
                                        <i class="fa fa-truck"></i>&nbsp; Đăng đơn hàng lên GHTK</a>
                                </div>
                            </div>
+                       @else
+                           <div class="box-tools not-print">
+                               <div class="btn-group pull-right" style="margin-right: 0px">
+                                   <a href="{{ route('ghtk.order.cancel', $order->id) }}" class="btn btn-sm btn-flat btn-danger"
+                                      onclick="return confirm('Bạn xác nhận hủy đơn hàng?')">
+                                       <i class="fa fa-print"></i>&nbsp;Hủy đơn hàng trên GHTK</a>
+                               </div>
+                               <div class="btn-group pull-right" style="margin-right: 10px">
+                                   <a href="{{ route('ghtk.order.print', $order->id) }}" target="_blank" class="btn btn-sm btn-flat btn-info">
+                                       <i class="fa fa-print"></i>&nbsp; In đơn hàng </a>
+                               </div>
+                           </div>
                        @endif
                    </div>
-                   <div class="row" id="ghtk_order">
-                       <div class="col-sm-6">
-                           <table class="table table-bordered">
-                               <tr>
-                                   <td class="td-title">Trạng thái đơn hàng:</td><td>{{$order_track->order->status_text}}</td>
-                               </tr>
-                               <tr>
-                                   <td class="td-title">Ngày tạo đơn:</td><td>{{$order_track->order->created}}</td>
-                               </tr>
-                               <tr>
-                                   <td class="td-title">Cập nhật cuối lúc:</td><td>{{$order_track->order->modified}}</td>
-                               </tr>
-                               <tr>
-                                   <td class="td-title">Ngày hẹn lấy:</td><td>{{$order_track->order->pick_date}}</td>
-                               </tr>
-                               <tr>
-                                   <td class="td-title">Số ngày giữ đơn tại kho GHTK:</td><td>{{$order_track->order->storage_day}}</td>
-                               </tr>
-                           </table>
+                   @if(!is_null($order_track))
+                       <div class="row" id="ghtk_order">
+                           <div class="col-sm-6">
+                               <table class="table table-bordered">
+                                   <tr>
+                                       <td class="td-title">Trạng thái đơn hàng:</td><td>{{$order_track->order->status_text}}</td>
+                                   </tr>
+                                   @if (isset($order_track->order->reason_code))
+                                       <tr>
+                                           <td class="td-title">Nguyên nhân:</td><td>{{$order_track->order->reason_code}}</td>
+                                       </tr>
+                                   @endif
+                                   <tr>
+                                       <td class="td-title">Ngày tạo đơn:</td><td>{{$order_track->order->created}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Cập nhật cuối lúc:</td><td>{{$order_track->order->modified}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Ngày hẹn lấy:</td><td>{{$order_track->order->pick_date}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Số ngày giữ đơn tại kho GHTK:</td><td>{{$order_track->order->storage_day}}</td>
+                                   </tr>
+                               </table>
+                           </div>
+                           <div class="col-sm-6">
+                               <table class="table table-bordered">
+                                   <tr>
+                                       <td class="td-title">Phí giao:</td><td>{{$order_track->order->ship_money}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Phí bảo hiểm:</td><td>{{$order_track->order->insurance}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Giá trị đóng bảo hiểm:</td><td>{{$order_track->order->value}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Số tiền cần thu hộ:</td><td>{{$order_track->order->pick_money}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Miễn phí ship:</td><td>{{($order_track->order->is_freeship) ? 'Miễn phí' : 'Không'}}</td>
+                                   </tr>
+                                   <tr>
+                                       <td class="td-title">Ghi chú đơn GHTK:</td><td>{{$order_track->order->message}}</td>
+                                   </tr>
+                               </table>
+                           </div>
                        </div>
-                       <div class="col-sm-6">
-                       <table class="table table-bordered">
-                           <tr>
-                               <td class="td-title">Phí giao:</td><td>{{$order_track->order->ship_money}}</td>
-                           </tr>
-                           <tr>
-                               <td class="td-title">Phí bảo hiểm:</td><td>{{$order_track->order->insurance}}</td>
-                           </tr>
-                           <tr>
-                               <td class="td-title">Giá trị đóng bảo hiểm:</td><td>{{$order_track->order->value}}</td>
-                           </tr>
-                           <tr>
-                               <td class="td-title">Số tiền cần thu hộ:</td><td>{{$order_track->order->pick_money}}</td>
-                           </tr>
-                           <tr>
-                               <td class="td-title">Miễn phí ship:</td><td>{{($order_track->order->is_freeship) ? 'Miễn phí' : 'Không'}}</td>
-                           </tr>
-                       </table>
-                   </div>
-                   </div>
+                   @else
+                       <div class="row" id="ghtk_order">
+                           <div class="col-md-12">
+                               <p style="margin-left: 20px">Không thể kết nối tới GHTK</p>
+                           </div>
+                       </div>
+                   @endif
                </div>
            @endif
 
