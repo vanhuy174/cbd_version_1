@@ -38,15 +38,25 @@ class GHTKController extends ShopOrderController
         if (!is_null($ghtk_order)) {
             try {
                 $order_track = (new GHTKWebserviceController())->track($ghtk_order->ghtk_order_id);
-                ShopShippingStatus::findOrFail($order_track->order->status);
                 if ($order->shipping_status != $order_track->order->status) {
-                    //Add history
-                    $dataHistory = [
-                        'order_id' => $order->id,
-                        'content' => 'Change <b>shipping status</b> from <span style="color:blue">' . $order->shipping_status . '</span> to <span style="color:red">' . $order_track->order->status . '</span>',
-                        'admin_id' => Admin::user()->id,
-                    ];
-                    $order->shipping_status = $order_track->order->status;
+                    if ($order_track->order->status == -1 && $order->shipping_status != 9999) {
+                        //Add history
+                        $dataHistory = [
+                            'order_id' => $order->id,
+                            'content' => 'Change <b>shipping status</b> from <span style="color:blue">' . $order->shipping_status . '</span> to <span style="color:red">' . 9999 . '</span>',
+                            'admin_id' => Admin::user()->id,
+                        ];
+                        $order->shipping_status = 9999;
+                    } else {
+                        ShopShippingStatus::findOrFail($order_track->order->status);
+                        //Add history
+                        $dataHistory = [
+                            'order_id' => $order->id,
+                            'content' => 'Change <b>shipping status</b> from <span style="color:blue">' . $order->shipping_status . '</span> to <span style="color:red">' . $order_track->order->status . '</span>',
+                            'admin_id' => Admin::user()->id,
+                        ];
+                        $order->shipping_status = $order_track->order->status;
+                    }
                     $order->save();
                     (new ShopOrder)->addOrderHistory($dataHistory);
                 }

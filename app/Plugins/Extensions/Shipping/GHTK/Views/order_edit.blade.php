@@ -97,7 +97,7 @@
                            <div class="col-sm-6">
                                <table class="table table-bordered">
                                    <tr>
-                                       <td class="td-title">Trạng thái đơn hàng:</td><td>{{$order_track->order->status_text}}</td>
+                                       <td class="td-title">Trạng thái đơn hàng:</td><td>{{($order_track->order->status == -1) ? 'Đã hủy' : $order_track->order->status_text}}</td>
                                    </tr>
                                    @if (isset($order_track->order->reason_code))
                                        <tr>

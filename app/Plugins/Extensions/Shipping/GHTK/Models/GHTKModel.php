@@ -135,6 +135,10 @@ class GHTKModel extends Model
                         'id' => '410',
                         'name' => 'GHTK - Shipper báo delay giao hàng'
                     ],
+                    [
+                        'id' => '9999',
+                        'name' => 'GHTK - Hủy Đơn Hàng'
+                    ],
 
                 ]);
                 (new GHTKWarehouseModel())->install();
