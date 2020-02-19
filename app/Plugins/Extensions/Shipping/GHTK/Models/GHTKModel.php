@@ -36,7 +36,6 @@ class GHTKModel extends Model
 
     public function installExtension()
     {
-        Log::info('create table');
         $return = ['error' => 0, 'msg' => 'Install extension success'];
         if (!Schema::hasTable($this->table)) {
             try {
