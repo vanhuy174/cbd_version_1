@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ShopShippingStatus;
 use Illuminate\Support\Facades\Route;
 
 Route::group(

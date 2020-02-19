@@ -10,4 +10,7 @@ return [
     'remove'        => 'Xóa',
     'token'        => 'Token',
     'test_mode'        => 'Test Mode',
+    'province' => 'Tỉnh/thành',
+    'district' => 'Quận/huyện',
+    'ward' => 'Xã/phường/thị trấn'
 ];

@@ -50,19 +50,19 @@
                             </tr>
                             <tr>
                                 <td class="td-title" style="font-weight: bold">Dịa chỉ:</td>
-                                <td style="text-align:right"></td>
+                                <td style="text-align:right">{{ $order->address }}</td>
                             </tr>
                             <tr>
                                 <td class="td-title" style="font-weight: bold">Xã/phường:</td>
-                                <td style="text-align:right"></td>
+                                <td style="text-align:right">{{ $order->ward }}</td>
                             </tr>
                             <tr>
                                 <td class="td-title" style="font-weight: bold">Quân/huyện:</td>
-                                <td style="text-align:right">{{ $order->address2 }}</td>
+                                <td style="text-align:right">{{ $order->district }}</td>
                             </tr>
                             <tr>
                                 <td class="td-title" style="font-weight: bold">Tỉnh/thành phố:</td>
-                                <td style="text-align:right">{{ $order->address1 }}</td>
+                                <td style="text-align:right">{{ $order->province }}</td>
                             </tr>
                         </table>
                     </div>

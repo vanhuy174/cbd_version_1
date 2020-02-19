@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ExtCustomerModel extends Model
+class ExtOrderModel extends Model
 {
     public $timestamps = true;
-    public $table      = 'shop_user';
+    public $table      = 'shop_order';
     protected $guarded = [];
 
     public function uninstallExtension()
@@ -27,7 +27,7 @@ class ExtCustomerModel extends Model
         $return = ['error' => 0, 'msg' => 'Install extension success'];
         try {
             Schema::table($this->table, function (Blueprint $table) {
-                $table->string('province')->after('password')->nullable();
+                $table->string('province')->after('last_name')->nullable();
                 $table->string('district')->after('province')->nullable();
                 $table->string('ward')->after('district')->nullable();
                 $table->string('address')->after('ward')->nullable();

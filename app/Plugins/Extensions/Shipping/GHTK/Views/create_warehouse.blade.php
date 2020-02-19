@@ -85,7 +85,7 @@
                             <div class="col-sm-3">
                                 <div class="{{ $errors->has('pick_province') ? ' has-error' : '' }}">
                                     <label for="pick_province" class="control-label">Tỉnh thành <span class="required">*</span></label>
-                                    <select class="form-control pick_province" name="pick_province" id="pick_province">
+                                    <select class="select2 form-control pick_province" name="pick_province" id="pick_province">
                                         <option value="">Chọn tỉnh/thành phố</option>
                                     </select>
                                     <small>Tỉnh thành nơi lấy hàng</small>
@@ -100,7 +100,7 @@
                             <div class="col-sm-3">
                                 <div class="{{ $errors->has('pick_district') ? ' has-error' : '' }}">
                                     <label for="pick_district" class="control-label">Quận/huyện <span class="required">*</span></label>
-                                    <select class="form-control pick_district" name="pick_district" id="pick_district">
+                                    <select class="select2 form-control pick_district" name="pick_district" id="pick_district">
                                         <option value="">Chọn quận/huyện</option>
                                     </select>
                                     <small>Quận/huyện nơi lấy hàng hóa</small>
@@ -112,9 +112,9 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="{{ $errors->has('pick_ward') ? ' has-error' : '' }}">
+                                <div class="form-group {{ $errors->has('pick_ward') ? ' has-error' : '' }}">
                                     <label for="pick_ward" class="control-label">Xã/phường/thị trấn</label>
-                                    <select class="form-control pick_ward" name="pick_ward" id="pick_ward">
+                                    <select class="select2 form-control pick_ward" name="pick_ward" id="pick_ward">
                                         <option value="">Chọn xã/phường/thị trấn</option>
                                     </select>
                                     <small>Xã/phường/thị trấn nơi lấy hàng hóa</small>
@@ -193,6 +193,8 @@
     @endsection
 
             @push('styles')
+                <!-- Select2 -->
+                <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/select2/dist/css/select2.min.css')}}">
                 <style>
                     .required {
                         color: red !important;
@@ -201,8 +203,11 @@
             @endpush
 
             @push('scripts')
+                <!-- Select2 -->
+                <script src="{{ asset('admin/AdminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
             <script>
                 $(document).ready(function () {
+                    $('.select2').select2();
                     get_default_ward();
                     $(document).on('change', '#pick_province',function () {
                         let code = $(this).find('option:selected').data('code');

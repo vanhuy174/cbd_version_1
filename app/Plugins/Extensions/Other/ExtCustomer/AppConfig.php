@@ -4,6 +4,8 @@ namespace App\Plugins\Extensions\Other\ExtCustomer;
 
 use App\Models\AdminConfig;
 use App\Plugins\Extensions\ConfigDefault;
+use App\Plugins\Extensions\Other\ExtCustomer\Models\ExtCustomerModel;
+use App\Plugins\Extensions\Other\ExtCustomer\Models\ExtOrderModel;
 
 class AppConfig extends ConfigDefault
 {
@@ -38,6 +40,8 @@ class AppConfig extends ConfigDefault
                     'detail' => $this->pathPlugin.'::' . $this->configKey . '.title',
                 ]
             );
+            (new ExtCustomerModel())->installExtension();
+            (new ExtOrderModel())->installExtension();
         }
         return $return;
     }
@@ -46,6 +50,8 @@ class AppConfig extends ConfigDefault
     {
         $return = ['error' => 0, 'msg' => ''];
         $process = (new AdminConfig)->where('key', $this->configKey)->delete();
+        (new ExtCustomerModel())->uninstallExtension();
+        (new ExtOrderModel())->uninstallExtension();
         if (!$process) {
             $return = ['error' => 1, 'msg' => 'Error when uninstall'];
         }

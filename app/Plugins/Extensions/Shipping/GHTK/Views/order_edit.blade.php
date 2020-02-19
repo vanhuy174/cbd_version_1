@@ -36,11 +36,35 @@
                       <td class="td-title">{{ trans('order.email') }}:</td><td>{!! empty($order->email)?'N/A':$order->email!!}</td>
                     </tr>
                     <tr>
-                      <td class="td-title">{{ trans('order.shipping_address1') }}:</td><td><a href="#" class="updateInfoRequired" data-name="address1" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.address1') }}" >{!! $order->address1 !!}</a></td>
+                      <td class="td-title">{{ trans('order.shipping_address') }}:</td>
+                        <td>
+                            <a href="#" class="updateInfoRequired" data-name="address" data-type="text" data-pk="{{ $order->id }}"
+                               data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.shipping_address') }}" >{!! $order->address !!}</a></td>
                     </tr>
-                      <tr>
-                      <td class="td-title">{{ trans('order.shipping_address2') }}:</td><td><a href="#" class="updateInfoRequired" data-name="address2" data-type="text" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.address2') }}" >{!! $order->address2 !!}</a></td>
+                     <tr>
+                      <td class="td-title">{{ trans((new App\Plugins\Extensions\Shipping\GHTK\AppConfig())->pathPlugin.'::GHTK.ward') }}:</td>
+                         <td>
+                             <a href="#" class="updateInfo" data-name="ward" data-type="text" data-pk="{{ $order->id }}"
+                                data-url="{{ route("admin_order.update") }}"
+                                data-title="{{ trans((new App\Plugins\Extensions\Shipping\GHTK\AppConfig())->pathPlugin.'::GHTK.ward') }}" >{!! $order->ward !!}</a>
+                         </td>
                     </tr>
+                     <tr>
+                         <td class="td-title">{{ trans((new App\Plugins\Extensions\Shipping\GHTK\AppConfig())->pathPlugin.'::GHTK.district') }}:</td>
+                         <td>
+                             <a href="#" class="updateInfoRequired" data-name="district" data-type="text" data-pk="{{ $order->id }}"
+                                data-url="{{ route("admin_order.update") }}"
+                                data-title="{{ trans((new App\Plugins\Extensions\Shipping\GHTK\AppConfig())->pathPlugin.'::GHTK.district') }}" >{!! $order->district !!}</a>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td class="td-title">{{ trans((new App\Plugins\Extensions\Shipping\GHTK\AppConfig())->pathPlugin.'::GHTK.province') }}:</td>
+                         <td>
+                             <a href="#" class="updateInfoRequired" data-name="province" data-type="text" data-pk="{{ $order->id }}"
+                                data-url="{{ route("admin_order.update") }}"
+                                data-title="{{ trans((new App\Plugins\Extensions\Shipping\GHTK\AppConfig())->pathPlugin.'::GHTK.province') }}" >{!! $order->province !!}</a>
+                         </td>
+                     </tr>
                       <tr>
                       <td class="td-title">{{ trans('order.country') }}:</td><td><a href="#" class="updateInfoRequired" data-name="country" data-type="select" data-source ="{{ json_encode($countryMap) }}" data-pk="{{ $order->id }}" data-url="{{ route("admin_order.update") }}" data-title="{{ trans('order.country') }}" data-value="{!! $order->country !!}"></a></td>
                     </tr>
