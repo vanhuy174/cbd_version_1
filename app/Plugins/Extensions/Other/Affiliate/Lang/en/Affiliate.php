@@ -2,5 +2,6 @@
 
 return [
     'title' => 'Affiliate',
-    'percen' => 'Percen'
+    'percent' => 'Percent',
+    'min_withdraw' => 'Min Withdraw'
 ];

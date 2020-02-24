@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AffiliateModel extends Model
+class AffiliateOrderModel extends Model
 {
     public $timestamps = true;
-    public $table      = 'affiliate';
+    public $table      = 'affiliate_order';
     protected $guarded = [];
+    public const DONE = 5;
+    public const FAILED = 4;
+    public const UNCONFIRM = 0;
+    public const CONFIRM = 1;
+    public const CANCEL = 2;
 
     public function uninstallExtension()
     {
@@ -26,11 +31,13 @@ class AffiliateModel extends Model
             try {
                 Schema::create($this->table, function (Blueprint $table) {
                     $table->increments('id');
-                    $table->integer('percent');
-                    $table->decimal('min_withdraw', 15, 2);
+                    $table->integer('user_id')->unsigned();
+                    $table->integer('order_id')->unsigned();
+                    $table->decimal('earn_money', 15, 2)->default(0);
+                    $table->string('affiliate_code', 191);
+                    $table->boolean('status')->default(0);
                     $table->timestamps();
                 });
-                $this->create(['percent' => 10, 'min_withdraw' => 200000]);
             } catch (\Exception $e) {
                 $return = ['error' => 1, 'msg' => $e->getMessage()];
             }

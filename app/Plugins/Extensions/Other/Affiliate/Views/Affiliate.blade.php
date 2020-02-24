@@ -15,19 +15,30 @@
         <table id="example2" class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>{{ trans($pathPlugin.'::Affiliate.percen') }}</th>
+                <th>{{ trans($pathPlugin.'::Affiliate.percent') }}</th>
+                <th>{{ trans($pathPlugin.'::Affiliate.min_withdraw') }}</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
                     <a href="#" class="updateData_num"
-                       data-name="percen"
+                       data-name="percent"
                        data-type="number"
                        data-pk="{{ $data['id'] }}"
                        data-url="{{ route('admin_extension.process',['group'=>$group,'key'=>$key]) }}"
-                       data-title="{{ trans($pathPlugin.'::Affiliate.percen') }}">
-                        {{ $data['percen'] }}
+                       data-title="{{ trans($pathPlugin.'::Affiliate.percent') }}">
+                        {{ $data['percent'] }}
+                    </a>
+                </td>
+                <td>
+                    <a href="#" class="updateData_num"
+                       data-name="min_withdraw"
+                       data-type="number"
+                       data-pk="{{ $data['id'] }}"
+                       data-url="{{ route('admin_extension.process',['group'=>$group,'key'=>$key]) }}"
+                       data-title="{{ trans($pathPlugin.'::Affiliate.min_withdraw') }}">
+                        {{ $data['min_withdraw'] }}
                     </a>
                 </td>
             </tr>

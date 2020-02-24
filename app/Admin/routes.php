@@ -7,7 +7,7 @@ Route::group(
         'prefix' => SC_ADMIN_PREFIX,
         'middleware' => SC_ADMIN_MIDDLEWARE,
         'namespace' => 'App\Admin\Controllers'
-    ], 
+    ],
     function (Router $router) {
     foreach (glob(__DIR__ . '/Routes/*.php') as $filename) {
         require_once $filename;

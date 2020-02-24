@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AffiliateModel extends Model
+class AffiliateUserModel extends Model
 {
     public $timestamps = true;
-    public $table      = 'affiliate';
+    public $table      = 'affiliate_user';
     protected $guarded = [];
 
     public function uninstallExtension()
@@ -26,11 +26,12 @@ class AffiliateModel extends Model
             try {
                 Schema::create($this->table, function (Blueprint $table) {
                     $table->increments('id');
-                    $table->integer('percent');
-                    $table->decimal('min_withdraw', 15, 2);
+                    $table->integer('user_id')->unsigned();
+                    $table->string('affiliate_code', 191)->unique()->nullable();
+                    $table->string('parent_code', 191)->nullable();
+                    $table->decimal('affiliate_money', 15, 2)->default(0);
                     $table->timestamps();
                 });
-                $this->create(['percent' => 10, 'min_withdraw' => 200000]);
             } catch (\Exception $e) {
                 $return = ['error' => 1, 'msg' => $e->getMessage()];
             }
@@ -38,5 +39,10 @@ class AffiliateModel extends Model
             $return = ['error' => 1, 'msg' => 'Table ' . $this->table . ' exist!'];
         }
         return $return;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('\App\Models\ShopUser', 'user_id', 'id');
     }
 }

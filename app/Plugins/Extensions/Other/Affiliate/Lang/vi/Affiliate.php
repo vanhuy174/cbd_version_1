@@ -2,5 +2,6 @@
 
 return [
     'title' => 'Affiliate',
-    'percen' => 'Phần trăm giá trị đơn hàng giới thiệu'
+    'percent' => 'Phần trăm giá trị đơn hàng giới thiệu',
+    'min_withdraw' => 'Số tiền rút tối thiểu'
 ];

@@ -2,9 +2,17 @@
 
 namespace App\Plugins\Extensions\Other\Affiliate;
 
+use App\Admin\Models\AdminMenu;
 use App\Models\AdminConfig;
 use App\Plugins\Extensions\ConfigDefault;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateExchangeModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateHistoryModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateLevelModel;
 use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateOrderModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateUserWithdrawModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateUserModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateWithdrawModel;
 
 class AppConfig extends ConfigDefault
 {
@@ -40,6 +48,40 @@ class AppConfig extends ConfigDefault
                 ]
             );
             (new AffiliateModel())->installExtension();
+            (new AffiliateUserModel())->installExtension();
+            (new AffiliateHistoryModel())->installExtension();
+            (new AffiliateWithdrawModel())->installExtension();
+            (new AffiliateOrderModel())->installExtension();
+            (new AffiliateUserWithdrawModel())->installExtension();
+
+            $parent = AdminMenu::createMenu([
+                'parent_id' => 6,
+                'sort' => 14,
+                'title' => 'Quản lý Affiliate',
+                'icon' => 'fa-percent',
+                'uri' => '',
+            ]);
+            AdminMenu::createMenu([
+                'parent_id' => $parent->id,
+                'sort' => 0,
+                'title' => 'Quản lý khách hàng Affiliate',
+                'icon' => 'fa-user',
+                'uri' => 'route::affiliate.user.index',
+            ]);
+            AdminMenu::createMenu([
+                'parent_id' => $parent->id,
+                'sort' => 0,
+                'title' => 'Quản lý đơn hàng Affiliate',
+                'icon' => 'fa-shopping-cart',
+                'uri' => 'route::affiliate.order.index',
+            ]);
+            AdminMenu::createMenu([
+                'parent_id' => $parent->id,
+                'sort' => 0,
+                'title' => 'Quản lý rút tiền',
+                'icon' => 'fa-money',
+                'uri' => 'route::affiliate.user_withdraw.index',
+            ]);
         }
         return $return;
     }
@@ -49,11 +91,27 @@ class AppConfig extends ConfigDefault
         $return = ['error' => 0, 'msg' => ''];
         $process = (new AdminConfig)->where('key', $this->configKey)->delete();
         (new AffiliateModel())->uninstallExtension();
+        (new AffiliateUserModel())->uninstallExtension();
+        (new AffiliateHistoryModel())->uninstallExtension();
+        (new AffiliateWithdrawModel())->uninstallExtension();
+        (new AffiliateOrderModel())->uninstallExtension();
+        (new AffiliateUserWithdrawModel())->uninstallExtension();
+        AdminMenu::where(['uri' => 'route::affiliate.user_withdraw.index'])->delete();
+        AdminMenu::where(['uri' => 'route::affiliate.order.index'])->delete();
+        AdminMenu::where(['uri' => 'route::affiliate.user.index'])->delete();
+        AdminMenu::where([
+            'parent_id' => 6,
+            'sort' => 14,
+            'title' => 'Quản lý Affiliate',
+            'icon' => 'fa-percent',
+            'uri' => '',
+        ])->delete();
         if (!$process) {
             $return = ['error' => 1, 'msg' => 'Error when uninstall'];
         }
         return $return;
     }
+
     public function enable()
     {
         $return = ['error' => 0, 'msg' => ''];
@@ -63,6 +121,7 @@ class AppConfig extends ConfigDefault
         }
         return $return;
     }
+
     public function disable()
     {
         $return = ['error' => 0, 'msg' => ''];
@@ -95,7 +154,6 @@ class AppConfig extends ConfigDefault
         }
         return $return;
     }
-
 
     public function getData()
     {

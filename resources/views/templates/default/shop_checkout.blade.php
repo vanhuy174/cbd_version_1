@@ -74,7 +74,7 @@
             </tr>
              <tr>
                 <th>{{ trans('cart.address') }}:</td>
-                <td>{{ $shippingAddress['address1'].' '.$shippingAddress['address2'].','.$shippingAddress['country'] }}</td>
+                <td>{{ $shippingAddress['address'].', '.$shippingAddress['ward'].', '.$shippingAddress['district'].', '.$shippingAddress['province'].', '.$shippingAddress['country'] }}</td>
             </tr>
             @if (sc_config('customer_postcode'))
             <tr>
@@ -87,7 +87,7 @@
             <tr>
                 <th>{{ trans('cart.company') }}:</td>
                 <td>{{ $shippingAddress['company']}}</td>
-            </tr> 
+            </tr>
             @endif
 
 
