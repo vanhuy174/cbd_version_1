@@ -122,6 +122,7 @@ class ShopOrderController extends Controller
                 'status' => $styleStatus[$row['status']],
                 'created_at' => $row['created_at'],
                 'action' => '
+                <a href="'.route('invoice.order', $row['id']).'" target="_blank" title="Export"><span title="In Hóa Đơn" type="button" class="btn btn-flat btn-info"><i class="fa fa-print"></i></span></a>&nbsp;
                                 <a href="' . route('admin_order.detail', ['id' => $row['id']]) . '"><span title="' . trans('order.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
                                 <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>'

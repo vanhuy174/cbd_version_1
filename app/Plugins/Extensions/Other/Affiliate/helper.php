@@ -119,8 +119,11 @@ if(!function_exists('get_withdraw_confirm_btn'))
 {
     function get_withdraw_confirm_btn($status, $withdraw_id)
     {
+        $print = '<a href="' . route('invoice.withdraw', ['withdraw' => $withdraw_id]) . '" target="_blank">
+                    <span title="In Hóa Đơn" type="button" class="btn btn-flat btn-info"><i class="fa fa-print"></i></span>
+                    </a> ';
         if ($status == (new AffiliateUserWithdrawModel())::UNCOMFIRM) {
-            return '<a href="' . route('admin.withdraw.confirm', ['withdraw' => $withdraw_id]) . '">
+            return $print.'<a href="' . route('admin.withdraw.confirm', ['withdraw' => $withdraw_id]) . '">
                     <span title="Xác Nhận" type="button" class="btn btn-flat btn-success">
                     <i class="fa fa-check"></i>
                     </span>
@@ -130,7 +133,7 @@ if(!function_exists('get_withdraw_confirm_btn'))
                     </span>
                     </a>';
         } else {
-            return '';
+            return $print;
         }
     }
 }

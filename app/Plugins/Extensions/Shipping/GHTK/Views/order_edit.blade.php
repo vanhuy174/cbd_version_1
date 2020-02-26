@@ -17,6 +17,10 @@
 {{--                  <div class="btn-group pull-right" style="margin-right: 10px;border:1px solid #c5b5b5;">--}}
 {{--                      <a class="btn btn-sm btn-flat" title="Export" onclick="order_print()"><i class="fa fa-print"></i><span class="hidden-xs"> Print</span></a>--}}
 {{--                  </div>--}}
+                  <div class="btn-group pull-right" style="margin-right: 10px;border:1px solid #c5b5b5;">
+                      <a href="{{route('invoice.order', $order->id)}}" class="btn btn-sm btn-flat" target="_blank" title="Export">
+                          <i class="fa fa-print"></i><span class="hidden-xs"> In hóa đơn</span></a>
+                  </div>
               </div>
           </div>
 

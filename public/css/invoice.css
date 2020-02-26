@@ -1,0 +1,71 @@
+@media print {
+    thead {
+        background-color: #80808042 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+#pdf {
+    margin: auto;
+    width: 595pt;
+    box-sizing: border-box;
+}
+.inner {
+    width: 100%;
+}
+h2 {
+    text-align: center;
+}
+.info tr td:first-child {
+    width: 85%;
+}
+td {
+    padding: 2px 0;
+    font-size: 14px;
+}
+table {
+    width: 100%;
+}
+table.product {
+    border-collapse:collapse;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-color: black;
+}
+thead {
+    text-align: center;
+    background: #80808042;
+}
+thead tr td {
+    padding: 5px 0;
+}
+
+table.product td {
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 12px;
+}
+.text-right {
+    text-align: right;
+}
+.bold {
+    font-weight: 700;
+}
+.fs14 {
+    font-size: 14px;
+}
+.border-unset {
+    border: unset;
+}
+.sign {
+    width: 100%;
+    text-align: center;
+}
+.tri {
+    font-size: 12px;
+    font-style: italic;
+}
