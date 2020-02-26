@@ -5,6 +5,7 @@ namespace App\Plugins\Extensions\Other\Affiliate\Controllers;
 
 use App\Admin\Admin;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use App\Models\ShopOrder;
 use App\Models\ShopUser;
 use App\Plugins\Extensions\Other\Affiliate\AppConfig;
@@ -15,6 +16,7 @@ use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateUserModel;
 use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateWithdrawModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class UserWithdrawController extends Controller
@@ -100,13 +102,23 @@ class UserWithdrawController extends Controller
             $withdraw->note = $request->note;
             $withdraw->save();
 
+            $user = ShopUser::find($withdraw->user_id);
             AffiliateHistoryModel::create([
                 'user_id' => $withdraw->user_id,
                 'admin_id' => Admin::user()->id,
                 'content' => 'Đã xác nhận yêu cầu rút tiền #<b>'.$withdraw->id.'</b>'
             ]);
-
-            return back()->with('success', 'Xác nhận rút tiền thành công!');
+            $data = [
+                'withdraw' => $withdraw,
+                'user' => $user,
+            ];
+            $config = [
+                'to' => $user->email,
+                'replyTo' => sc_store('email'),
+                'subject' => 'Đã Xác Nhận Lệnh Rút Tiền',
+            ];
+            Mail::send(new SendMail('mail.withdraw_success', $data, $config));
+            return redirect()->route('affiliate.user_withdraw.index')->with('success', 'Xác nhận rút tiền thành công!');
         } catch (\Exception $e) {
             return back()->with('error', 'Xác nhận rút tiền không thành công!');
         }

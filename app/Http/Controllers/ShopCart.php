@@ -52,7 +52,7 @@ class ShopCart extends GeneralController
                 $moduleClass = $sourcesPayment[$module['key']].'\AppConfig';
                 $paymentMethod[$module['key']] = (new $moduleClass)->getData();
             }
-        }        
+        }
 
         //Total
         $moduleTotal = sc_get_extension('total');
@@ -63,11 +63,11 @@ class ShopCart extends GeneralController
                 $moduleClass = $sourcesTotal[$module['key']].'\AppConfig';
                 $totalMethod[$module['key']] = (new $moduleClass)->getData();
             }
-        } 
+        }
 
 
         //====================================================
- 
+
 
         $extensionDiscount = $totalMethod['Discount'] ?? '';
         if (!empty(session('Discount'))) {
@@ -169,10 +169,10 @@ class ShopCart extends GeneralController
         }
         if(sc_config('customer_company')) {
             $validate['company'] = 'required|min:3';
-        }        
+        }
         $v = Validator::make(
-            request()->all(), 
-            $validate, 
+            request()->all(),
+            $validate,
             $messages
         );
         if ($v->fails()) {
@@ -652,18 +652,8 @@ class ShopCart extends GeneralController
             $checkContentCustomer = (new ShopEmailTemplate)->where('group', 'order_success_to_customer')->where('status', 1)->first();
             if ($checkContent || $checkContentCustomer) {
                 $orderDetail = '';
-                $orderDetail .= '<tr>
-                                    <td>' . trans('email.order.sort') . '</td>
-                                    <td>' . trans('email.order.sku') . '</td>
-                                    <td>' . trans('email.order.name') . '</td>
-                                    <td>' . trans('email.order.price') . '</td>
-                                    <td>' . trans('email.order.qty') . '</td>
-                                    <td>' . trans('email.order.total') . '</td>
-                                </tr>';
                 foreach ($data['details'] as $key => $detail) {
                     $orderDetail .= '<tr>
-                                    <td>' . ($key + 1) . '</td>
-                                    <td>' . $detail['sku'] . '</td>
                                     <td>' . $detail['name'] . '</td>
                                     <td>' . sc_currency_render($detail['price'], '', '', '', false) . '</td>
                                     <td>' . number_format($detail['qty']) . '</td>
@@ -677,8 +667,6 @@ class ShopCart extends GeneralController
                     '/\{\{\$lastName\}\}/',
                     '/\{\{\$toname\}\}/',
                     '/\{\{\$address\}\}/',
-                    '/\{\{\$address1\}\}/',
-                    '/\{\{\$address2\}\}/',
                     '/\{\{\$email\}\}/',
                     '/\{\{\$phone\}\}/',
                     '/\{\{\$comment\}\}/',
@@ -694,9 +682,7 @@ class ShopCart extends GeneralController
                     $data['first_name'],
                     $data['last_name'],
                     $data['first_name'].' '.$data['last_name'],
-                    $data['address1'] . ' ' . $data['address2'],
-                    $data['address1'],
-                    $data['address2'],
+                    $data['address'] . ', ' . $data['ward']. ', ' . $data['district']. ', ' . $data['province'],
                     $data['email'],
                     $data['phone'],
                     $data['comment'],

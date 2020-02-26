@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\GeneralController;
 use App\Models\ShopEmailTemplate;
 use App\Models\ShopUser;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateHistoryModel;
+use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateUserModel;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends GeneralController
@@ -55,35 +59,8 @@ class RegisterController extends GeneralController
             'reg_first_name' => 'required|string|max:100',
             'reg_email' => 'required|string|email|max:255|unique:' . (new ShopUser)->getTable() . ',email',
             'reg_password' => 'required|string|min:6|confirmed',
-            'reg_address1' => 'required|string|max:255',
         ];
-        if(sc_config('customer_lastname')) {
-            $validate['reg_last_name'] = 'required|max:100';
-        }
-        if(sc_config('customer_address2')) {
-            $validate['reg_address2'] = 'required|max:100';
-        }
-        if(sc_config('customer_phone')) {
-            $validate['reg_phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
-        }
-        if(sc_config('customer_country')) {
-            $validate['reg_country'] = 'required|min:2';
-        }
-        if(sc_config('customer_postcode')) {
-            $validate['reg_postcode'] = 'nullable|min:5';
-        }
-        if(sc_config('customer_company')) {
-            $validate['reg_company'] = 'nullable';
-        }   
-        if(sc_config('customer_sex')) {
-            $validate['reg_sex'] = 'required';
-        }   
-        if(sc_config('customer_birthday')) {
-            $validate['reg_birthday'] = 'nullable|date|date_format:Y-m-d';
-        } 
-        if(sc_config('customer_group')) {
-            $validate['reg_group'] = 'nullable';
-        }  
+
         return Validator::make($data, $validate);
     }
 
@@ -97,22 +74,35 @@ class RegisterController extends GeneralController
     {
         $dataMap = [
             'first_name' => $data['reg_first_name'],
-            'last_name' => $data['reg_last_name']??'',
             'email' => $data['reg_email'],
             'password' => bcrypt($data['reg_password']),
-            'phone' => $data['reg_phone']??null,
-            'address1' => $data['reg_address1'],
-            'address2' => $data['reg_address2']??'',
-            'country' => $data['reg_country']??'VN',
-            'group' => $data['reg_group']??1,
-            'sex' => $data['reg_sex']??0,
-            'postcode' => $data['reg_postcode']??null,
         ];
-        if(!empty($data['reg_birthday'])) {
-            $dataMap['birthday'] = $data['reg_birthday'];
-        }
 
         $user = ShopUser::createCustomer($dataMap);
+        if (Session::has('affiliate_code')) {
+            try {
+                AffiliateUserModel::where('user_id', $user->id)->firstOrFail();
+            } catch (\Exception $e) {
+                AffiliateUserModel::create([
+                    'user_id' =>  $user->id,
+                    'parent_code' => session('affiliate_code'),
+                ]);
+                try {
+                    $parent = AffiliateUserModel::where('affiliate_code', session('affiliate_code'))->firstOrFail();
+                    AffiliateHistoryModel::create([
+                        'user_id' => $parent->user_id,
+                        'content' => 'Người dùng <b>#'.$user->id.'</b> đã đăng ký với mã affiliate  <b>'.session('affiliate_code'),
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error('Not Found affiliate_code');
+                }
+            }
+        } else {
+            AffiliateUserModel::create([
+                'user_id' =>  $user->id
+            ]);
+        }
+
         if ($user) {
             if (sc_config('welcome_customer')) {
 
@@ -122,24 +112,14 @@ class RegisterController extends GeneralController
                     $dataFind = [
                         '/\{\{\$title\}\}/',
                         '/\{\{\$first_name\}\}/',
-                        '/\{\{\$last_name\}\}/',
                         '/\{\{\$email\}\}/',
-                        '/\{\{\$phone\}\}/',
                         '/\{\{\$password\}\}/',
-                        '/\{\{\$address1\}\}/',
-                        '/\{\{\$address2\}\}/',
-                        '/\{\{\$country\}\}/',
                     ];
                     $dataReplace = [
                         trans('email.welcome_customer.title'),
                         $dataMap['first_name'],
-                        $dataMap['last_name'],
                         $dataMap['email'],
-                        $dataMap['phone'],
-                        $dataMap['password'],
-                        $dataMap['address1'],
-                        $dataMap['address2'],
-                        $dataMap['country'],
+                        $data['reg_password'],
                     ];
                     $content = preg_replace($dataFind, $dataReplace, $content);
                     $data_mail = [
@@ -155,8 +135,6 @@ class RegisterController extends GeneralController
                 }
 
             }
-        } else {
-
         }
         return $user;
     }

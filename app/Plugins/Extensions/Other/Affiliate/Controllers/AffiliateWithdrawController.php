@@ -6,6 +6,7 @@ namespace App\Plugins\Extensions\Other\Affiliate\Controllers;
 use App\Admin\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GeneralController;
+use App\Mail\SendMail;
 use App\Models\ShopUser;
 use App\Plugins\Extensions\Other\Affiliate\AppConfig;
 use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateHistoryModel;
@@ -14,6 +15,7 @@ use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateUserWithdrawModel;
 use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateUserModel;
 use App\Plugins\Extensions\Other\Affiliate\Models\AffiliateWithdrawModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AffiliateWithdrawController extends GeneralController
@@ -96,6 +98,16 @@ class AffiliateWithdrawController extends GeneralController
             'user_id' => auth()->id(),
             'content' => 'Đã tạo lệnh rút tiền <b>'.$wd->id.'</b>. Số tiền <b>'.$request->money.'</b>'
         ]);
+        $data = [
+            'withdraw' => $wd,
+            'user' => auth()->user(),
+        ];
+        $config = [
+            'to' => auth()->user()->email,
+            'replyTo' => sc_store('email'),
+            'subject' => 'Tạo Lệnh Rút Tiền Thành Công',
+        ];
+        Mail::send(new SendMail('mail.withdraw_create', $data, $config));
         return redirect()->route('affiliate.landing')->with('success', 'Tạo lệnh rút tiền thành công');
     }
 }

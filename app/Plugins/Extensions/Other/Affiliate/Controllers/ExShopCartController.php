@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ShopCart;
 use App\Models\ShopAttributeGroup;
 use App\Models\ShopCountry;
+use App\Models\ShopEmailTemplate;
 use App\Models\ShopOrder;
 use App\Models\ShopOrderTotal;
 use App\Models\ShopProduct;
@@ -246,6 +247,37 @@ class ExShopCartController extends ShopCart
                     'country' => $shippingAddress['country'],
                     'phone' => $shippingAddress['phone'],
                 ]);
+                if (sc_config('welcome_customer')) {
+
+                    $checkContent = (new ShopEmailTemplate)->where('group', 'welcome_customer')->where('status', 1)->first();
+                    if ($checkContent) {
+                        $content = $checkContent->text;
+                        $dataFind = [
+                            '/\{\{\$title\}\}/',
+                            '/\{\{\$first_name\}\}/',
+                            '/\{\{\$email\}\}/',
+                            '/\{\{\$password\}\}/',
+                        ];
+                        $dataReplace = [
+                            trans('email.welcome_customer.title'),
+                            $shippingAddress['first_name'],
+                            $shippingAddress['email'],
+                            $shippingAddress['phone'],
+                        ];
+                        $content = preg_replace($dataFind, $dataReplace, $content);
+                        $data_mail = [
+                            'content' => $content,
+                        ];
+
+                        $config = [
+                            'to' => $shippingAddress['email'],
+                            'subject' => trans('email.welcome_customer.title'),
+                        ];
+
+                        sc_send_mail('mail.welcome_customer', $data_mail, $config, []);
+                    }
+
+                }
                 $uID = $user->id;
                 if (Session::has('affiliate_code')) {
                     try {
