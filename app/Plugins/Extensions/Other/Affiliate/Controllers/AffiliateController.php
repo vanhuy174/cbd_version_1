@@ -29,7 +29,7 @@ class AffiliateController extends GeneralController
         $title = 'Tham gia tích đổi đổi thưởng';
         $withdraws = AffiliateUserWithdrawModel::where('user_id', auth()->id())->get();
         return view((new AppConfig())->pathPlugin.'::affiliate_create',
-            compact('affiliate_user', 'title' , 'templatePath', 'templateFile', 'childs', 'withdraws'));
+            compact('affiliate_user', 'title', 'childs', 'withdraws'));
     }
 
     public function create_affiliate_code()

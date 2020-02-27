@@ -60,6 +60,12 @@ require_once 'component/product.php';
 */
 require_once 'component/content.php';
 
+/*
+ CBD routes
+*/
+require_once 'component/cbd_routes.php';
+
+
 //Language
 Route::get('locale/{code}', function ($code) {
     session(['locale' => $code]);

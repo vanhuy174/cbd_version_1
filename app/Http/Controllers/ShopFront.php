@@ -6,6 +6,7 @@ use App\Models\ShopAttributeGroup;
 use App\Models\ShopBrand;
 use App\Models\ShopBanner;
 use App\Models\ShopCategory;
+use App\Models\ShopNews;
 use App\Models\ShopProduct;
 use App\Models\ShopVendor;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class ShopFront extends GeneralController
                 'products_build' => (new ShopProduct)->getTopBuild($limit = 4),
                 'products_group' => (new ShopProduct)->getTopGroup($limit = 4),
                 'layout_page' => 'home',
+                'news' => (new ShopNews)->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate'),
 
             )
         );

@@ -61,38 +61,38 @@
         <h3 class="control-label"><i class="fa fa-truck" aria-hidden="true"></i> {{ trans('cart.shipping_address') }}:<br></h3>
         <table class="table box table-bordered" id="showTotal">
             <tr>
-                <th>{{ trans('cart.name') }}:</td>
+                <th>{{ trans('cart.name') }}:</th>
                 <td>{{ $shippingAddress['first_name'] }} {{ $shippingAddress['last_name'] }}</td>
             </tr>
             <tr>
-                <th>{{ trans('cart.phone') }}:</td>
+                <th>{{ trans('cart.phone') }}:</th>
                 <td>{{ $shippingAddress['phone'] }}</td>
             </tr>
              <tr>
-                <th>{{ trans('cart.email') }}:</td>
+                <th>{{ trans('cart.email') }}:</th>
                 <td>{{ $shippingAddress['email'] }}</td>
             </tr>
              <tr>
-                <th>{{ trans('cart.address') }}:</td>
+                <th>{{ trans('cart.address') }}:</th>
                 <td>{{ $shippingAddress['address'].', '.$shippingAddress['ward'].', '.$shippingAddress['district'].', '.$shippingAddress['province'].', '.$shippingAddress['country'] }}</td>
             </tr>
             @if (sc_config('customer_postcode'))
             <tr>
-                <th>{{ trans('cart.postcode') }}:</td>
+                <th>{{ trans('cart.postcode') }}:</th>
                 <td>{{ $shippingAddress['postcode']}}</td>
             </tr>
             @endif
 
             @if (sc_config('customer_company'))
             <tr>
-                <th>{{ trans('cart.company') }}:</td>
+                <th>{{ trans('cart.company') }}:</th>
                 <td>{{ $shippingAddress['company']}}</td>
             </tr>
             @endif
 
 
              <tr>
-                <th>{{ trans('cart.note') }}:</td>
+                <th>{{ trans('cart.note') }}:</th>
                 <td>{{ $shippingAddress['comment'] }}</td>
             </tr>
         </table>
