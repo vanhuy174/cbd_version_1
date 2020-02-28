@@ -423,14 +423,14 @@ class CreateShopTables extends Migration
             $table->string('first_name', 100);
             $table->string('last_name', 100)->nullable();
             $table->string('email', 150)->unique();
-            $table->tinyInteger('sex')->default(0)->comment('0:women, 1:men');
+            $table->tinyInteger('sex')->default(0)->comment('0:women, 1:men')->nullable();
             $table->date('birthday')->nullable();
             $table->string('password', 100);
             $table->string('postcode', 10)->nullable();
             $table->string('address1', 100)->nullable();
             $table->string('address2', 100)->nullable();
             $table->string('company', 100)->nullable();
-            $table->string('country', 10)->default('VN');
+            $table->string('country', 10)->default('VN')->nullable();
             $table->string('phone', 20);
             $table->string('remember_token', 100)->nullable();
             $table->tinyInteger('status')->default(1);

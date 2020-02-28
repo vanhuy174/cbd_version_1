@@ -92,7 +92,8 @@ body{
 .topsection-text1{
     font-weight: 300;
     font-family: 'Roboto Slab', Sans-serif;
-    font-size: 14px;
+    font-size: 24px;
+    color: white;
     float: left;
     margin-right: 10px;
 }
@@ -327,7 +328,7 @@ body{
 .vc_custom_1462119377274 {
     margin-bottom: 0px !important;
     padding-top: 40px !important;
-    padding-bottom: 50px !important;
+    /*padding-bottom: 50px !important;*/
     background-color: #69b845 !important;
 }
 

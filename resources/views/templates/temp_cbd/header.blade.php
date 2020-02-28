@@ -1,80 +1,136 @@
 <header id="farmvilla_organic_theme_header" class="bliccaThemes-header header-classic header-style11 off-sticky">
     <div class="topsection topsection-twocolumn">
-        <div class="container container-width-85">
+        <div class="container container-width-85" style="height: 50px; line-height: 50px; white-space: nowrap;">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="topsection-left-area">
-                        <div class="top-section-table">
-                            <div class="top-section-table-center">
-                                <div class="header-text-widget widget_text">
-                                    <div class="textwidget">
-                                        @if (count($languages)>1)
-                                            @foreach ($languages as $key => $language)
-                                        <div class="topsection-text1">
-                                            <a class="link-language" href="{{ url('locale/'.$key) }}"><img class="img-language" src="{{ asset($language['icon']) }}" style="height: 40px;"></a>
-                                        </div>
-                                            @endforeach
-                                        @endif
-                                        <div class="topsection-text">
-                                            <i class="fa fa-phone-square" aria-hidden="true"></i>
-                                            1800 200 300
-                                        </div>
-                                        <div class="topsection-text" style="margin-left: 10px;">
-                                            <i class="fa fa-facebook" aria-hidden="true"></i> fb.com/htcenter
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <div class="topsection-text1">
+                        <i class="fa fa-phone-square" aria-hidden="true"></i> 1800 200 300
                     </div>
-                    <div class="topsection-right-area">
-                        <div class="top-section-table">
-                            <div class="top-section-table-center">
-                                <div class="bliccaThemes-header-search search-circle-bg">
-                                    <div class="bliccaThemes-search-container">
-                                        <i class="fa fa-search"></i>
-                                    </div>
-                                    <div class="search">
-                                        <form method="get" action="{{ route('search') }}">
-                                            <input type="text" name="keyword" class="search-query"
-                                                   placeholder="{{ trans('front.search_form.keyword') }}..." value="">
-                                        </form>
-                                        <div class="search-close searchOffOn"><i class="fa fa-times"></i></div>
-                                    </div>
-                                </div>
-                                <div class="header-social    ">
-                                    <a>
-                                        <div class="social-facebook"><i class="fa"></i></div>
-                                    </a>
-                                    @php
-                                        $cartsCount = \Cart::count();
-                                    @endphp
-                                    @guest
-                                        <a class="icon-login" href="{{ route('login') }}">
-                                            <i class="fa fa-lock"></i> {{ trans('front.login') }}
-                                        </a>
-                                    @else
-                                        <a href="{{ route('cart') }}">
-                                            <div class="social-facebook"><i class="fa fa-cart-plus"></i></div>
-                                        </a>
-                                        <a href="{{ route('member.order_list') }}">
-                                            <div class="social-facebook"><i class="fa fa-user"></i></div>
-                                        </a>
-                                        <a class="icon-logout" href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();"><i
-                                                    class="fa fa-power-off"></i> {{ trans('front.logout') }}
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                              style="display: none;">
-                                            @csrf
-                                        </form>
-                                    @endguest
-                                </div>
-                            </div>
-                        </div>
+                    <div class="topsection-text1">
+                        <a href="http://fb.com/vanhuy174" target="_blank" style="color: white;"><i class="fa fa-facebook" aria-hidden="true"></i> fb.com/htcenter</a>
+
                     </div>
-                    <div class="clearfix"></div>
                 </div>
+                <div class="col-md-6">
+                    <div style="float: right; margin-top: 10px;">
+                    @if (count($languages)>1)
+                        @foreach ($languages as $key => $language)
+                            <div class="topsection-text1">
+                                <a class="link-language" href="{{ url('locale/'.$key) }}"><img class="img-language" src="{{ asset($language['icon']) }}" style="height: 40px;"></a>
+                            </div>
+                        @endforeach
+                    @endif
+                    </div>
+                        <div class="bliccaThemes-header-search search-circle-bg" style="float: right; margin-top: 10px;">
+                            <div class="bliccaThemes-search-container">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div class="search">
+                                <form method="get" action="{{ route('search') }}">
+                                    <input type="text" name="keyword" class="search-query"
+                                           placeholder="{{ trans('front.search_form.keyword') }}..." value="">
+                                </form>
+                                <div class="search-close searchOffOn"><i class="fa fa-times"></i></div>
+                            </div>
+                        </div>
+                        <div class="header-social topsection-text1" style="float: right;">
+                            @php
+                                $cartsCount = \Cart::count();
+                            @endphp
+                            @guest
+                                <a class="icon-login" href="{{ route('login') }}" style="font-size: 20px;">
+                                    <i class="fa fa-lock"></i> {{ trans('front.login') }}
+                                </a>
+                            @else
+                                <a href="{{ route('cart') }}">
+                                    <div class="social-facebook"><i class="fa fa-cart-plus"></i></div>
+                                </a>
+                                <a href="{{ route('member.order_list') }}">
+                                    <div class="social-facebook"><i class="fa fa-user"></i></div>
+                                </a>
+                                <a class="icon-logout" href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"><i
+                                            class="fa fa-power-off"></i> {{ trans('front.logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            @endguest
+                        </div>
+                </div>
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="topsection-left-area">--}}
+{{--                        <div class="top-section-table">--}}
+{{--                            <div class="top-section-table-center">--}}
+{{--                                <div class="header-text-widget widget_text">--}}
+{{--                                    <div class="textwidget">--}}
+{{--                                        @if (count($languages)>1)--}}
+{{--                                            @foreach ($languages as $key => $language)--}}
+{{--                                            <div class="topsection-text1">--}}
+{{--                                                <a class="link-language" href="{{ url('locale/'.$key) }}"><img class="img-language" src="{{ asset($language['icon']) }}" style="height: 40px;"></a>--}}
+{{--                                            </div>--}}
+{{--                                            @endforeach--}}
+{{--                                        @endif--}}
+{{--                                            <div class="topsection-text1">--}}
+{{--                                                <i class="fa fa-phone-square" aria-hidden="true"></i> 1800 200 300--}}
+{{--                                            </div>--}}
+{{--                                            <div class="topsection-text1">--}}
+{{--                                                <i class="fa fa-facebook" aria-hidden="true"></i> fb.com/htcenter--}}
+{{--                                            </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="topsection-right-area">--}}
+{{--                        <div class="top-section-table">--}}
+{{--                            <div class="top-section-table-center">--}}
+{{--                                <div class="bliccaThemes-header-search search-circle-bg">--}}
+{{--                                    <div class="bliccaThemes-search-container">--}}
+{{--                                        <i class="fa fa-search"></i>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="search">--}}
+{{--                                        <form method="get" action="{{ route('search') }}">--}}
+{{--                                            <input type="text" name="keyword" class="search-query"--}}
+{{--                                                   placeholder="{{ trans('front.search_form.keyword') }}..." value="">--}}
+{{--                                        </form>--}}
+{{--                                        <div class="search-close searchOffOn"><i class="fa fa-times"></i></div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="header-social    ">--}}
+{{--                                    <a>--}}
+{{--                                        <div class="social-facebook"><i class="fa"></i></div>--}}
+{{--                                    </a>--}}
+{{--                                    @php--}}
+{{--                                        $cartsCount = \Cart::count();--}}
+{{--                                    @endphp--}}
+{{--                                    @guest--}}
+{{--                                        <a class="icon-login" href="{{ route('login') }}">--}}
+{{--                                            <i class="fa fa-lock"></i> {{ trans('front.login') }}--}}
+{{--                                        </a>--}}
+{{--                                    @else--}}
+{{--                                        <a href="{{ route('cart') }}">--}}
+{{--                                            <div class="social-facebook"><i class="fa fa-cart-plus"></i></div>--}}
+{{--                                        </a>--}}
+{{--                                        <a href="{{ route('member.order_list') }}">--}}
+{{--                                            <div class="social-facebook"><i class="fa fa-user"></i></div>--}}
+{{--                                        </a>--}}
+{{--                                        <a class="icon-logout" href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();--}}
+{{--                                            document.getElementById('logout-form').submit();"><i--}}
+{{--                                                    class="fa fa-power-off"></i> {{ trans('front.logout') }}--}}
+{{--                                        </a>--}}
+{{--                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
+{{--                                              style="display: none;">--}}
+{{--                                            @csrf--}}
+{{--                                        </form>--}}
+{{--                                    @endguest--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="clearfix"></div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>

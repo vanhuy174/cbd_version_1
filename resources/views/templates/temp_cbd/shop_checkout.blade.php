@@ -4,7 +4,7 @@
     <section>
         <div class="container">
             <div class="row">
-                <h2 class="title text-center">{{ $title }}</h2>
+                <h2 class="title text-center padding-t-b-3">{{ $title }}</h2>
                 @if (count($cart) ==0)
                     <div class="col-md-12 text-danger">
                         Cart empty!
@@ -157,15 +157,15 @@
     </section>
 @endsection
 
-@section('breadcrumb')
-    <div class="breadcrumbs">
-        <ol class="breadcrumb">
-            <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>
-            <li><a href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>
-            <li class="active">{{ $title }}</li>
-        </ol>
-    </div>
-@endsection
+{{--@section('breadcrumb')--}}
+{{--    <div class="breadcrumbs">--}}
+{{--        <ol class="breadcrumb">--}}
+{{--            <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>--}}
+{{--            <li><a href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>--}}
+{{--            <li class="active">{{ $title }}</li>--}}
+{{--        </ol>--}}
+{{--    </div>--}}
+{{--@endsection--}}
 
 @push('scripts')
 @endpush

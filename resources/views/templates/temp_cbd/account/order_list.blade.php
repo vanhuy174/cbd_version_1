@@ -29,7 +29,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-sm-9 ">
+            <div class="col-sm-9 "  style="color: black;">
                 @if (count($orders) ==0)
                     <div class="col-md-12 text-danger"  style="background-color: white;">
                         <h3>{{ trans('account.orders.empty') }}</h3>

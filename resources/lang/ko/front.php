@@ -7,6 +7,7 @@ return [
     'footer-phone'       => 'Phone number',
     'footer-register'    => 'Register now',
     'all_product'        => 'All products',
+    'knowledges'        => 'Knowledges',
     'title_physical'     => 'Physical CBD are curable',
     'title_promotional_products'            => 'Promotional products',
     'title_favorite_products'            => 'Favorite products',

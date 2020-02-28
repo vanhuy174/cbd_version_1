@@ -7,6 +7,7 @@ return [
     'footer-phone'       => 'Số điện thoại',
     'footer-register'    => 'Đăng ký ngay',
     'all_product'        => 'Tất cả sản phẩm',
+    'knowledges'        => 'Kiến thức',
     'title_physical'     => 'THỂ TRẠNG CBD CÓ THỂ CHỮA TRỊ',
     'title_promotional_products'            => 'CÁC SẢN PHẨM KHUYẾN MÃI',
     'title_favorite_products'            => 'CÁC SẢN PHẨM ƯA DÙNG',

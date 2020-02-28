@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card" style="color: black;">
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('member.post_change_password') }}">
