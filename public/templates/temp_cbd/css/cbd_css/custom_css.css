@@ -103,7 +103,12 @@ body{
     width: auto !important;
     height: 30px !important;
 }
-
+.sc-notice{
+    clear: both;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 
 @media (max-width: 992px){
     .navbar .collapse{
@@ -266,7 +271,7 @@ body{
     border-style: none;
 }
 .topsection {
-    background: rgba(122, 163, 84, 1);
+    background: #69b845;
 }
 
 .header-social a div {

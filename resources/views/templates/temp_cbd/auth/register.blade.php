@@ -51,7 +51,7 @@
         </div>
         <input type="hidden" name="check_red" value="1">
         <div class="submit">
-            <button type="submit" name="SubmitCreate" class="btn btn-success">{{ trans('account.signup') }}</button>
+            <button type="submit" name="SubmitCreate" class="btn btn-primary btn-login">{{ trans('account.signup') }}</button>
         </div>
     </div>
 

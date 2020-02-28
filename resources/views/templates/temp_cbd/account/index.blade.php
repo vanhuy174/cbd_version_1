@@ -12,11 +12,11 @@
         <div class="container container-width-85 margin-t-3">
             <div class="row">
                 <div class="col-sm-3">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush"  style="background-color: #f5f6f8; font-weight: bold;">
                         <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
                                     href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a></li>
                         <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                            <a href="{{ route('affiliate.landing') }}">Trở thành đối tác và kiếm tiền cùng chúng tôi</a>
+                            <a href="{{ route('affiliate.landing') }}">{{ trans('account.partner') }}</a>
                         </li>
                         <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
                                     href="{{ route('member.change_password') }}">{{ trans('account.change_password') }}</a>

@@ -7,8 +7,8 @@
                 <div class="wpb_column vc_column_container vc_col-sm-12">
                     <div class="vc_column-inner ">
                         <div class="wpb_wrapper">
-                            <div class="bt_heading_7">
-                                <div class="flipInX-1 blind text animated"
+                            <div class="bt_heading_7 home_title">
+                                <div class="flipInX-1 blind text animated "
                                      style="color:#464646; font-size:40px; font-weight:400; ">
                                     <span>{{ trans('front.title_promotional_products') }}</span>
                                 </div>
@@ -142,7 +142,7 @@
                 <div class="wpb_column vc_column_container vc_col-sm-12">
                     <div class="vc_column-inner ">
                         <div class="wpb_wrapper">
-                            <div class="bt_heading_7">
+                            <div class="bt_heading_7 home_title">
                                 <div class="flipInX-1 blind text animated"
                                      style="color:#464646; font-size:40px; font-weight:400; ">
                                     <span>{{ trans('front.title_favorite_products') }}</span>
@@ -318,7 +318,7 @@
                 <div class="wpb_column vc_column_container vc_col-sm-12">
                     <div class="vc_column-inner ">
                         <div class="wpb_wrapper">
-                            <div class="bt_heading_7">
+                            <div class="bt_heading_7 home_title">
                                 <div class="flipInX-1 blind text animated"
                                      style="color:#464646; font-size:40px; font-weight:400; ">
                                     <span>{{ trans('front.title_customer_reviews') }}</span>
@@ -447,7 +447,7 @@
                 <div class="wpb_column vc_column_container vc_col-sm-12">
                     <div class="vc_column-inner ">
                         <div class="wpb_wrapper">
-                            <div class="bt_heading_7">
+                            <div class="bt_heading_7 home_title">
                                 <div class="flipInX-1 blind text animated"
                                      style="color:#464646; font-size:40px; font-weight:400; ">
                                     <span>{{ trans('front.title_post') }}</span>
@@ -519,7 +519,7 @@
                                                 style="text-align: center">
                                                 <div class="bt_thumbnail">
                                                     <a class="prettyPhoto" data-rel="prettyPhoto"
-                                                       href="{{ $newsDetail->getUrl() }}">
+                                                           href="{{ $newsDetail->getUrl() }}">
                                                         <img width="770" height="490"
                                                              src="{{ asset($newsDetail->getThumb()) }}"
                                                              class="attachment-farmvilla_organic_theme-blog_widget1 size-farmvilla_organic_theme-blog_widget1 wp-post-image"

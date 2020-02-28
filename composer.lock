@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f4fa6ae2bb70e879825ebf79d8af5f7",
+    "content-hash": "c577172d190db304156043709ec715d9",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -4244,6 +4244,62 @@
                 "webprofiler"
             ],
             "time": "2019-08-29T07:01:03+00:00"
+        },
+        {
+            "name": "beyondcode/laravel-view-xray",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-view-xray.git",
+                "reference": "a29940339b053ec22cfe3582ccd876ea8534f395"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-view-xray/zipball/a29940339b053ec22cfe3582ccd876ea8534f395",
+                "reference": "a29940339b053ec22cfe3582ccd876ea8534f395",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6|^3.7|^3.8|^4.0",
+                "phpunit/phpunit": "^7.0|^8.0",
+                "spatie/phpunit-snapshot-assertions": "^1.3|^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\ViewXray\\ViewXrayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\ViewXray\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Take a look into your Laravel views.",
+            "homepage": "https://github.com/beyondcode/laravel-view-xray",
+            "keywords": [
+                "beyondcode",
+                "laravel-view-xray"
+            ],
+            "time": "2019-09-04T07:39:34+00:00"
         },
         {
             "name": "doctrine/instantiator",

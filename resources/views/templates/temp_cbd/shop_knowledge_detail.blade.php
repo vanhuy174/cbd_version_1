@@ -21,16 +21,16 @@
                                     <!-- Loop Start -->
                                     <article class="post-item post-161 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
                                         <div class="bt_thumbnail">
-                                                <img width="850" height="384"
-                                                     src="{{$news_currently->image}}"
-                                                     class="attachment-farmvilla_organic_theme-blog-single size-farmvilla_organic_theme-blog-single wp-post-image"
-                                                     alt=""/>
+                                            <img width="850" height="384"
+                                                 src="{{$knowledge_currently->image}}"
+                                                 class="attachment-farmvilla_organic_theme-blog-single size-farmvilla_organic_theme-blog-single wp-post-image"
+                                                 alt=""/>
                                         </div>
                                         <div class="blog-content">
                                             <h1 class="blog-title">{{ $title }}</h1>
 
-                                            <div class="blog-inner">
-                                                {!! sc_html_render($news_currently->content) !!}
+                                            <div class="blog-inner" style="background: none;">
+                                                {!! sc_html_render($knowledge_currently->content) !!}
                                             </div>
 
                                         </div>
@@ -48,7 +48,7 @@
                                         <div id="respond" class="comment-respond">
                                             <h3 id="reply-title" class="comment-reply-title"><span>Post a Comment</span>
                                                 <small><a rel="nofollow" id="cancel-comment-reply-link"
-                                                          href=""
+                                                          href="/"
                                                           style="display:none;">Cancel reply</a></small></h3>
                                             <form action=""
                                                   method="post" id="commentform" class="comment-form">

@@ -60,27 +60,28 @@
 
                     <aside class="col-sm-3 col-md-3 sidebar">
                         <div class="sidebar-inner">
-{{--                            <div class="sidebar-widget widget_search">--}}
-{{--                                <div class="search">--}}
-{{--                                    <form method="get" action="http://bliccathemes.com/themes/farmvilla">--}}
-{{--                                        <input type="text" name="s" class="search-query"--}}
-{{--                                               placeholder="Type and hit enter to search" value="">--}}
-{{--                                        <button class="search-icon" type="submit"><i class="fa fa-search"></i></button>--}}
-{{--                                    </form>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            {{--                                    <div class="sidebar-widget widget_search">--}}
+                            {{--                                        <div class="search">--}}
+                            {{--                                            <form method="get" action="http://bliccathemes.com/themes/farmvilla">--}}
+                            {{--                                                <input type="text" name="s" class="search-query"--}}
+                            {{--                                                       placeholder="Type and hit enter to search" value="">--}}
+                            {{--                                                <button class="search-icon" type="submit"><i class="fa fa-search"></i>--}}
+                            {{--                                                </button>--}}
+                            {{--                                            </form>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
                             <div class="sidebar-widget widget_recent_entries"><h5>Recent Posts</h5>
                                 <ul>
                                     <li>
-                                        <a href="/">Enjoy
+                                        <a>Enjoy
                                             your life with healthy body</a>
                                     </li>
                                     <li>
-                                        <a href="/">Buy
+                                        <a>Buy
                                             organic food online and be healthy</a>
                                     </li>
                                     <li>
-                                        <a href="/">Reasons
+                                        <a>Reasons
                                             why you should choose organic</a>
                                     </li>
                                 </ul>
@@ -90,8 +91,8 @@
                             </div>
                             <div class="sidebar-widget widget_archive"><h5>Archives</h5>
                                 <ul>
-                                    <li><a href='/'>April 2016</a>
-                                    </li>
+                                    <li><a>April
+                                            2016</a></li>
                                 </ul>
                             </div>
                             <div class="sidebar-widget widget_categories"><h5>Categories</h5>
@@ -103,12 +104,12 @@
                             </div>
                             <div class="sidebar-widget widget_meta"><h5>Meta</h5>
                                 <ul>
-                                    <li><a href="/">Log in</a></li>
-                                    <li><a href="/">Entries <abbr
+                                    <li><a>Log
+                                            in</a></li>
+                                    <li><a>Entries <abbr
                                                     title="Really Simple Syndication">RSS</abbr></a></li>
-                                    <li><a href="/">Comments <abbr
-                                                    title="Really Simple Syndication">RSS</abbr></a></li>
-
+                                    <li><a>Comments
+                                            <abbr title="Really Simple Syndication">RSS</abbr></a></li>
                                 </ul>
                             </div>
                         </div>

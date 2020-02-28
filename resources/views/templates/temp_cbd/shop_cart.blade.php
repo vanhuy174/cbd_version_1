@@ -14,7 +14,7 @@
             <div class="row">
                 @if (count($cart) ==0)
                     <div class="col-md-12 text-danger">
-                        Cart empty!
+                        <h3>Cart empty!</h3>
                     </div>
                 @else
 

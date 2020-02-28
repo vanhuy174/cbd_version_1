@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
+        "beyondcode/laravel-view-xray": "^1.2",
         "facade/ignition": "^1.4",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",

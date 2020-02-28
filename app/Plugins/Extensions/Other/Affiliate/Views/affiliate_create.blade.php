@@ -12,11 +12,12 @@
 <div class="container container-width-85 margin-t-3">
     <div class="row">
         <div class="col-sm-3">
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush" style="background-color: #f5f6f8; font-weight: bold;">
                 <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
-                            href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a></li>
+                            href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a>
+                </li>
                 <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="{{ route('affiliate.landing') }}">Trở thành đối tác và kiếm tiền cùng chúng tôi</a>
+                    <a href="{{ route('affiliate.landing') }}">{{ trans('account.partner') }}</a>
                 </li>
                 <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
                             href="{{ route('member.change_password') }}">{{ trans('account.change_password') }}</a>
@@ -24,54 +25,53 @@
                 <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
                             href="{{ route('member.change_infomation') }}">{{ trans('account.change_infomation') }}</a>
                 </li>
-
             </ul>
         </div>
         <div class="col-sm-9">
-            <h3>Tham gia chương trình tích giới thiệu mua hàng và kiếm tiền cùng chúng tôi</h3>
-            <p>Với mỗi đơn hàng được giới thiệu thành công, bạn sẽ nhận được <b>{{get_affiliate_percent()}}</b> giá trị đơn hàng</p>
+            <h3>{{ trans('account.Join') }}</h3>
+            <p>{{ trans('account.text_1') }} <b>{{get_affiliate_percent()}}</b> {{ trans('account.text_4') }}</p>
             @if (is_null($affiliate_user->affiliate_code))
-                <p>Tài khoản của bạn chưa có mã giới thiệu.</p>
-                <p>Hãy hoàn thành đơn hàng đâu tiên và nhấn nút "<b>Tạo Mã</b>" để tham gia chương trình <b>tích điểm đổi thưởng</b> cùng chúng tôi.</p>
+                <p>{{ trans('account.text_2') }}</p>
+                <p>{{ trans('account.text_3') }}</p>
                 @if (can_affiliate_code())
-                    <p><a href="{{route('create_affiliate_code')}}" class="btn btn-info">Tạo Mã</a></p>
+                    <p><a href="{{route('create_affiliate_code')}}" class="btn btn-info">{{ trans('account.generate_code') }}</a></p>
                 @endif
             @else
-                <p>Liên kết giới thiệu của bạn là:</p>
+                <p>{{ trans('account.your_referral') }}</p>
                 <p><b>{{route('affiliate', $affiliate_user->affiliate_code)}}</b></p>
-                <p>Hãy chia sẻ liên kết này cho bạn bè cùng mua sản phẩm và kiếm tiền cùng CBD.</p>
+                <p>{{ trans('account.please_share') }}</p>
             @endif
 
             <div class="box collapsed-box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Lịch Sử Rút Tiền</h3>
-                    <p>Đang có: <b class="text-success">{{$affiliate_user->affiliate_money}}</b></p>
-                    <p>Số tiền tối thiểu để rút: <b class="text-danger">{{get_min_withdraw()}}</b></p>
+                    <h3 class="box-title">{{ trans('account.withdrawal_history') }}</h3>
+                    <p>{{ trans('account.having') }}: <b class="text-success">{{$affiliate_user->affiliate_money}}</b></p>
+                    <p>{{ trans('account.minimum_withdrawal') }}: <b class="text-danger">{{get_min_withdraw()}}</b></p>
                     @if ($affiliate_user->affiliate_money >= get_min_withdraw())
-                        <p><a href="{{route('affiliate.withdraw')}}" class="btn btn-info">Rút Tiền</a></p>
+                        <p><a href="{{route('affiliate.withdraw')}}" class="btn btn-info">{{ trans('account.withdrawal') }}</a></p>
                     @else
-                        <p><a class="btn btn-info" disabled="">Rút Tiền</a></p>
+                        <p><a class="btn btn-info" disabled="">{{ trans('account.withdrawal') }}</a></p>
                     @endif
                     @if(get_withdraw_info())
-                        <a href="{{route('affiliate.withdraw_info.edit')}}">Xem thông tin tài khoản ngân hàng rút về</a>
+                        <a href="{{route('affiliate.withdraw_info.edit')}}">{{ trans('account.view_withdrawn') }}</a>
                     @else
-                        <a href="{{route('affiliate.withdraw_info.index')}}">Thêm tài khoản ngân hàng</a> trước khi rút.
+                        <a href="{{route('affiliate.withdraw_info.index')}}">{{ trans('account.add_bank') }}</a> {{ trans('account.before_withdrawing_money') }}
                     @endif
 
                 </div>
 
-                <p>Tiền sẽ được chuyển trong 24h - 48h kể từ khi được xác nhận</p>
+                <p>{{ trans('account.money_will') }}</p>
                 <div class="box-body">
                     @if (count($withdraws))
                         <table  class="table table-bordered" id="affiliate_list">
                             <thead>
                             <tr>
-                                <th>Lần</th>
-                                <th>Số Tiền Rút</th>
-                                <th>Ngày Rút</th>
-                                <th>Ghi Chú</th>
-                                <th>Mã Giao Dịch Ngân Hàng</th>
-                                <th>Trạng Thái</th>
+                                <th>{{ trans('account.bout') }}</th>
+                                <th>{{ trans('account.amount_of_withdrawal') }}</th>
+                                <th>{{ trans('account.date_withdrawn') }}</th>
+                                <th>{{ trans('account.note') }}</th>
+                                <th>{{ trans('account.bank_transaction_code') }}</th>
+                                <th>{{ trans('account.status') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -88,14 +88,14 @@
                             </tbody>
                         </table>
                     @else
-                        <p>Chưa thực hiện rút tiền nào.</p>
+                        <p>{{ trans('account.no_withdrawals') }}</p>
                     @endif
                 </div>
             </div>
 
             <div class="box collapsed-box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Danh Sách Giới Thiệu</h3>
+                    <h3 class="box-title">{{ trans('account.referral_list') }}</h3>
                 </div>
 
                 <div class="box-body">
@@ -103,8 +103,8 @@
                         <table  class="table table-bordered" id="affiliate_list">
                             <thead>
                             <tr>
-                                <th>Người Dùng</th>
-                                <th>Số Tiền Đang Có</th>
+                                <th>{{ trans('account.user') }}</th>
+                                <th>{{ trans('account.amount_available') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -117,7 +117,7 @@
                             </tbody>
                         </table>
                     @else
-                        <p>Chưa giới thiệu thành công</p>
+                        <p>{{ trans('account.not_successful') }}</p>
                     @endif
                 </div>
             </div>

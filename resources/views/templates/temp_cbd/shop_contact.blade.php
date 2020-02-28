@@ -141,9 +141,9 @@
                                 <div class="vc_column-inner ">
                                     <div class="wpb_wrapper">
                                         <div class="bt_heading_7">
-                                            <div class="fadeInUp-1 blind text animated"
-                                                 style="color:#464646; font-size:40px; font-weight:400; ">Get In
-                                                <span>Touch</span></div>
+                                            <div class="fadeInUp-1 blind text animated" style="color:#464646; font-size:40px; font-weight:400; ">
+                                                <span>{{$title}}</span>
+                                            </div>
                                             <div class="fadeIn-1 blind line_1 animated"
                                                  style="animation-delay: 100ms; -moz-animation-delay: 100ms; -webkit-animation-delay: 100ms;"></div>
                                         </div>

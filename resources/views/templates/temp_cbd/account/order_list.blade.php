@@ -14,13 +14,12 @@
     <div class="container container-width-85 margin-t-3">
         <div class="row">
             <div class="col-sm-3">
-                <ul class="list-group list-group-flush" style="background-color: #f5f6f8;">
-
+                <ul class="list-group list-group-flush" style="background-color: #f5f6f8; font-weight: bold;">
                     <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
                                 href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a>
                     </li>
                     <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                        <a href="{{ route('affiliate.landing') }}">Trở thành đối tác và kiếm tiền cùng chúng tôi</a>
+                        <a href="{{ route('affiliate.landing') }}">{{ trans('account.partner') }}</a>
                     </li>
                     <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a
                                 href="{{ route('member.change_password') }}">{{ trans('account.change_password') }}</a>
@@ -33,7 +32,7 @@
             <div class="col-sm-9 ">
                 @if (count($orders) ==0)
                     <div class="col-md-12 text-danger"  style="background-color: white;">
-                        {{ trans('account.orders.empty') }}
+                        <h3>{{ trans('account.orders.empty') }}</h3>
                     </div>
                 @else
                     <table class="table box  table-bordered table-responsive"  style="background-color: #f5f6f8;">
@@ -69,7 +68,7 @@
 
                             <!-- Modal -->
                             <div id="order-{{ $order->id }}" class="modal fade" role="dialog" style="z-index: 9999;">
-                                <div class="modal-dialog modal-lg">
+                                <div class="modal-dialog modal-lg" style="width: 75%;">
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -81,9 +80,9 @@
                                                 <div class="row">
                                                     <div class="col-md-4">{{ $detail->name }} (<b>SKU:</b> {{ $detail->sku }})</div>
                                                     <div class="col-md-3" align="right">{{ number_format($detail->price) }} </div>
-                                                    <div class="col-md-2">{{$detail->attribute }}</div>
-                                                    <div class="col-md-1">x {{ $detail->qty }}</div>
-                                                    <div class="col-md-2"   align="right">{{ number_format($detail->total_price) }} </div>
+{{--                                                    <div class="col-md-1">{{$detail->attribute }}</div>--}}
+                                                    <div class="col-md-2">x {{ $detail->qty }}</div>
+                                                    <div class="col-md-3" align="right">{{ number_format($detail->total_price) }} </div>
                                                 </div>
                                             @endforeach
                                             <hr>

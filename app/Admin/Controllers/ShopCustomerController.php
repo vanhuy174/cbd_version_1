@@ -115,14 +115,14 @@ class ShopCustomerController extends Controller
 //=menu_left
 
 //menu_right
-        $data['menu_right'] = '
-                        <div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_customer.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
-                           <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
-                           </a>
-                        </div>
-
-                        ';
+//        $data['menu_right'] = '
+//                        <div class="btn-group pull-right" style="margin-right: 10px">
+//                           <a href="' . route('admin_customer.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+//                           <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
+//                           </a>
+//                        </div>
+//
+//                        ';
 //=menu_right
 
 //menu_sort

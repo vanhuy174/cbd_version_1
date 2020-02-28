@@ -135,7 +135,7 @@ a:active, a:focus {
 }
 
 span {
-    color: #7aa354;
+    color: #69b845;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -993,7 +993,7 @@ a.logo-text {
     background: transparent;
     color: #464646;
     font-size: 1.5vw;
-    font-family: 'Roboto Slab', sans-serif;
+    font-family: 'utm-avo', sans-serif;
 }
 
 .header-style11 .navbar-nav > li > :last-child > a {
@@ -21287,7 +21287,7 @@ ul.bt-recent-blog-widget {
 }
 
 .bt_heading_7 .text {
-    font-family: 'Roboto Slab', serif;
+    /*font-family: 'Roboto Slab', serif;*/
     line-height: 46px;
 }
 
@@ -21304,7 +21304,7 @@ ul.bt-recent-blog-widget {
 .bt_heading_7 .line_1 {
     height: 4px;
     width: 80px;
-    background-color: #7aa354;
+    background-color: #69b845;
     margin: 0 auto;
     margin-top: 25px;
 }

@@ -22,16 +22,24 @@
     <style>
         @font-face {
             font-family: "utm-avo";
-            src: url("{{ asset($templateFile.'/font/utm-avo.ttf')}}");
+            src: url("{{ asset($templateFile.'/fonts/utm-avo.ttf')}}");
+
+        }
+        @font-face {
+            font-family: "utm-avobold";
+            src: url("{{ asset($templateFile.'/fonts/utm-avobold.ttf')}}");
 
         }
         *{
-            font-family: "utm-avo";
+            /*font-family: "utm-avo";*/
         }
         h1,h2,h3,h4,h5,h6{
             font-family: "utm-avo" !important;
-
         }
+        .home_title{
+            font-family: "utm-avobold" !important;
+        }
+
     </style>
 
 <!--Module meta -->
